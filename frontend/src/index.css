@@ -1,0 +1,235 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.back-image{
+  margin-top: -25px;
+  background-image: url('https://s-media-cache-ak0.pinimg.com/originals/8b/b4/05/8bb40536f6bdf228bc5f91d3fc4e4029.jpg');
+  width: 100%;
+  height: 800px;
+}
+
+.logo{
+  font-family: 'Pacifico', cursive;
+}
+
+.logo.large{
+  color:#f44289;
+  font-size: 8em;
+  padding-top:10%;
+  padding-left: 5%;
+   text-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+}
+
+.logo.small{
+  color: white;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, .3);
+}
+
+.slogan{
+  color:#9b999a;
+  font-family: 'Crete Round', serif;
+  font-size: 2em;
+  padding-top:2px;
+  padding-left: 5%;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, .3);
+}
+
+.home-button{
+  background-color:#f44289;
+  color: white;
+  border: none;
+  margin-top:15%;
+  margin-left: 10px
+}
+
+.home-button.first{
+  margin-left: 5%;
+}
+
+.navbar{
+  background-color: #f44289;
+  border: none;
+  border-radius: 0px;
+  color: white !important;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+
+.gift-icon{
+  padding-right:7px;
+}
+
+.gift-back{
+  color:#f44289;
+  opacity: 0.19;
+  font-size:25em;
+  position: absolute;
+  padding-top: 25px;
+  left: 25px
+}
+
+.action-icon{
+      margin-right:10px;
+}
+
+.action-icon:hover{
+    color:#f44289;
+}
+
+.new-simcha.btn{
+    margin-top: 2px;
+}
+
+.btn.pink{
+    background-color: #f44289;
+    color:white;
+}
+
+.btn.pink:hover{
+  color:#f44289;
+  background-color: #d8d8d8;
+  border: 1px solid #f44289;
+}
+
+.simchas-header{
+  border: 2px solid #d8d8d8;
+}
+
+.logo.simchas{
+  font-size: 8em;
+  color:#f44289;
+  text-align: center;
+}
+
+.table-top{
+  height: 38px;
+  background-color: #d8d8d8;
+}
+
+.simcha-table{
+  padding-right: 0px ;
+  padding-left: 0px ;
+}
+
+.checkbox-group{
+  margin-top: 25px;
+}
+
+.checkbox-class{
+  position:absolute;
+  bottom: 2px;
+  margin-left:8px ;
+}
+
+.details-column{
+  width: 15px;
+}
+
+.details-title{
+ font-family: 'Pacifico', cursive;
+  color:#f44289;
+}
+
+.control {
+	font-size: 18px;
+	position: relative;
+	display: block;
+	margin-bottom: 15px;
+	padding-left: 30px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.control__indicator {
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 20px;
+	height: 20px;
+	background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+	border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #f44289;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #f44289;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 3px;
+	left: 6.5px;
+	width: 6px;
+	height: 13px;
+	transform: rotate(45deg);
+	border: solid #fff;
+	border-width: 0 3px 4px 0;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+.details-title>.fa{
+  margin-right: 10px;
+}
+
+.total{
+  color: #f44289;
+  float: right;
+   font-family: 'Crete Round', serif;
+  font-size: 2em;
+}
+
+.col-span-3{
+  column-span: 3;
+}
+
+
+
+
