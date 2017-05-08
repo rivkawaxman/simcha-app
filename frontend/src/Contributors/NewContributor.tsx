@@ -1,40 +1,22 @@
-import React, { Component } from 'react';
-import ReactBootstrap, { Modal } from 'react-bootstrap'
-import Moment from 'moment'
+import * as React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import * as Moment from 'moment';
+import {Contributor} from '../../../types/Simcha';
+import {NewContributorState, NewContributorProps} from './interfaces';
 
-export default class EditContributor extends Component {
+export default class NewContributor extends React.Component<NewContributorProps, NewContributorState> {
 
     constructor() {
         super();
         this.state = {
             showModal: false,
-            contributor: {
-                id:'',
-                firstName: '',
-                lastName: '',
-                cellNumber: '',
-                currentBalance: '',
-                dateCreated: '',
-                alwaysInclude: false
-            }
+            contributor: new Contributor('', '', '', new Date(), false)
         }
+
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.changeField = this.changeField.bind(this);
-    }
-
-    componentDidMount() {
-        this.setState({contributor : {
-            id: this.props.id,
-            firstName: this.props.firstName,
-            lastName: this.props.lastName,
-            cellNumber: this.props.cellNumber,
-            currentBalance: this.props.currentBalance,
-            dateCreated: Moment(this.props.dateCreated).format('YYYY-MM-DD'),
-            alwaysInclude: this.props.alwaysInclude
-        }
-        });
     }
 
     async handleSubmit(event) {
@@ -45,16 +27,9 @@ export default class EditContributor extends Component {
 
     close() {
         this.setState({ showModal: false });
-        // this.setState({
-        //     contributor: {
-        //         firstName: '',
-        //         lastName: '',
-        //         cellNumber: '',
-        //         currentBalance: '',
-        //         dateCreated: '',
-        //         alwaysInclude: false
-        //     }
-        // });
+        this.setState({
+            contributor:  new Contributor('', '', '', new Date(), false)
+        });
     }
 
     open() {
@@ -75,12 +50,12 @@ export default class EditContributor extends Component {
 
     render() {
         return (
-            <span>
-                <i className="fa fa-pencil action-icon" onClick={this.open}></i>
+            <div>
+                <button className="btn new-simcha pink" onClick={this.open}>New Contributor</button>
                 <Modal show={this.state.showModal} onHide={this.close}>
                     <form onSubmit={this.handleSubmit}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Edit Contributor</Modal.Title>
+                            <Modal.Title>New Contributor</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div className="row">
@@ -99,7 +74,7 @@ export default class EditContributor extends Component {
                                     <input type="text" name="cellNumber" className="form-control" value={this.state.contributor.cellNumber} onChange={(e) => { this.changeField(e) }} />
                                 </div>
                                 <div className="form-group col-md-6">
-                                    <span>Current Balance:</span>
+                                    <span>Initial Deposit:</span>
                                     <input type="text" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
                                 </div>
                             </div>
@@ -109,7 +84,7 @@ export default class EditContributor extends Component {
                                     <input type="date" name="dateCreated" className="form-control" value={Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')} onChange={(e) => { this.changeField(e) }} />
                                 </div>
                                 <div className="form-group col-md-6 checkbox-group">
-                                    <input type="checkbox" name="alwaysInclude"
+                                    <input type="checkbox" name="alwaysInclude" 
                                         checked={this.state.contributor.alwaysInclude}
                                         onChange={(e) => { this.changeCheckBox(e) }} />
                                     <span className="checkbox-class">Always Include</span>
@@ -117,13 +92,13 @@ export default class EditContributor extends Component {
                             </div>
                         </Modal.Body>
                         <Modal.Footer>
-                            <button className="btn" onClick={this.close}>Close</button>
-                            <button type="submit" className="btn pink">Submit</button>
+                            <Button onClick={this.close}>Close</Button>
+                            <button type="submit" className="btn pink">Add</button>
                         </Modal.Footer>
                     </form>
                 </Modal>
-            </span>
-        )
-
+            </div>
+        );
     }
 }
+

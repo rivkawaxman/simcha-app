@@ -1,7 +1,8 @@
-import React from 'react'
-import Contributor from './Contributor'
+import * as React from 'react';
+import Contributor from './Contributor';
+import {ContributorTableProps} from "./interfaces";
 
-export default function ContributorTable(props) {
+export default function ContributorTable(props: ContributorTableProps) {
 
 
     return (
@@ -25,7 +26,7 @@ export default function ContributorTable(props) {
 }
 
 
-function createTable(props) {
+function createTable(props:ContributorTableProps) {
     let contributors = props.contributors;
     if (contributors) {
         return (
@@ -33,12 +34,13 @@ function createTable(props) {
                 {contributors.map(c => 
                 <Contributor 
                     key={c.id} 
-                    onClickDelete={props.deleteContributor.bind(this, c.id)} 
-                    onClickEdit={props.editContributor.bind(this)}
-                    onClickDeposit={props.deposit.bind(this)}
-                    {...c} />)}
+                    onClickDelete={() => {props.deleteContributor(c.id)}}
+                    onClickEdit={() => {props.editContributor(c)}}
+                    onClickDeposit={ props.deposit}
+                    contributor={c} />)}
             </tbody>
         );
     }
+    return '';
 
 }

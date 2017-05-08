@@ -1,10 +1,12 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import axios from 'axios';
-import Numeral from 'numeral';
+import * as Numeral from 'numeral';
 import NewContributor from "./NewContributor"
-import ContributorTable from "./ContributorTable"
+import ContributorTable from "./ContributorTable";
+import {ContributorsState} from "./interfaces";
+import {Contributor, Deposit} from '../../../types/Simcha';
 
-export default class Contributors extends Component {
+export default class Contributors extends React.Component<any, ContributorsState> {
 
     constructor() {
         super();
@@ -24,25 +26,25 @@ export default class Contributors extends Component {
         this.setState({ total: result.data.total[0].total });
     }
 
-    async addNewContributor(contributor) {
+    async addNewContributor(contributor: Contributor) {
         await axios.post('/api/contributors/add', { contributor });
         let result = await axios.get('/api/contributors/');
         this.setState({ contributors:  result.data.contributors });
     }
 
-    async deleteContributor(id) {
+    async deleteContributor(id:number) {
         await axios.post('api/contributors/delete', { id: id });
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors:  result.data.contributors }, () => console.log("here"));
+        this.setState({ contributors:  result.data.contributors });
     }
 
-    async editContributor(contributor) {
+    async editContributor(contributor: Contributor) {
         await axios.post('/api/contributors/edit', { contributor });
         let result = await axios.get('/api/contributors/');
         this.setState({ contributors:  result.data.contributors});
     }
 
-    async deposit(deposit) {
+    async deposit(deposit:Deposit) {
         await axios.post('/api/contributors/deposit', { deposit: deposit });
         let result = await axios.get('/api/contributors/');
         this.setState({ contributors:  result.data.contributors });

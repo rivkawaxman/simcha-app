@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import ReactBootstrap, { Modal } from 'react-bootstrap';
+import * as React from 'react';
+import { Modal } from 'react-bootstrap';
 import axios from 'axios';
-import Moment from 'moment';
-import Numeral from 'numeral';
+import * as Moment from 'moment';
+import * as Numeral from 'numeral';
+import {ContributorHistoryProps, ContributorHistoryState} from './interfaces';
 
-export default class ContributorHistory extends Component {
+export default class ContributorHistory extends React.Component<ContributorHistoryProps, ContributorHistoryState> {
     constructor() {
         super();
         this.state = {
@@ -53,7 +54,7 @@ export default class ContributorHistory extends Component {
                                 {this.state.history.map((h, index) => 
                                     <tr key={index}>
                                         <td>{h.type}</td>
-                                        <td>{h.name}</td>
+                                        <td>{h.simcha}</td>
                                         <td>{(h.type==="Deposit" ? "+" : "-") + Numeral(h.amount).format('$0,0.00')}</td>
                                         <td>{Moment(h.date).format('MMMM DD, YYYY')}</td>
                                     </tr>

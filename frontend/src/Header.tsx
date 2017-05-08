@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'react-router/Link'
+import * as React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function Header(props) {
     return (
@@ -32,4 +32,5 @@ function isActive(path){
     if(location.pathname === path){
         return "active";
     }
+    return '';
 }

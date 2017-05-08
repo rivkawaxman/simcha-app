@@ -12,6 +12,7 @@ export default class SimchaGroup extends React.Component<SimchaGroupProps, Simch
         }
         this.openDetails = this.openDetails.bind(this);
         this.closeDetails = this.closeDetails.bind(this);
+        this.deleteSimcha = this.deleteSimcha.bind(this);
     }
 
     openDetails() {
@@ -31,11 +32,15 @@ export default class SimchaGroup extends React.Component<SimchaGroupProps, Simch
         return '';
     }
 
+    deleteSimcha(){
+        this.props.deleteSimcha(this.props.simcha.id);
+    }
+
     renderSimcha(simcha:SimchaType) {
         return (
             <Simcha
                 key={simcha.id}
-                onClickDelete={this.props.deleteSimcha(simcha.id)}
+                onClickDelete={this.deleteSimcha}
                 onClickOpen={this.openDetails}
                 onClickClose={this.closeDetails}
                 simcha={simcha}

@@ -97,7 +97,7 @@ export default class AddContributions extends React.Component<AddContributionPro
                                 <label className="control control--checkbox">
                                     <input type="checkbox"
                                         checked={c.give}
-                                        id={index}
+                                        id={index.toString()}
                                         onChange={(e) => { this.changeCheckBox(e) }}
                                     />
                                     <span className="control__indicator"></span>
@@ -105,7 +105,7 @@ export default class AddContributions extends React.Component<AddContributionPro
 
                             </td>
                             <td>{c.contributor.firstName} {c.contributor.lastName}</td>
-                            <td><input className="form-control" type="number" value={c.amountGave} name="amountToGive" id={index} onChange={(e) => { this.changeField(e) }} /></td >
+                            <td><input className="form-control" type="number" value={c.amountGave} name="amountToGive" id={index.toString()} onChange={(e) => { this.changeField(e) }} /></td >
                             <td>{Numeral(c.contributor.currentBalance).format('$0,0.00')}</td>
                             <td>{c.contributor.alwaysInclude ? <i className="fa fa-check-circle"></i> : ""}</td>
                         </tr>

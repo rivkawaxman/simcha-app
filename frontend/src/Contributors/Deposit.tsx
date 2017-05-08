@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import ReactBootstrap, { Modal } from 'react-bootstrap'
-import Moment from 'moment'
+import * as React from 'react';
+import { Modal } from 'react-bootstrap'
+import * as Moment from 'moment';
+import { Deposit as DepositType} from '../../../types/Simcha';
+import { DepositProps, DepositState } from './interfaces';
 
-export default class Deposit extends Component {
+export default class Deposit extends React.Component<DepositProps, DepositState> {
 
     constructor() {
         super();
         this.state = {
             showModal: false,
-           amount:''
+            amount: 0
         }
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
@@ -16,21 +18,23 @@ export default class Deposit extends Component {
         this.changeField = this.changeField.bind(this);
     }
 
- 
+
     async handleSubmit(event) {
         event.preventDefault();
         //await this.props.onSubmit(this.props.contributorId, this.state.amount);
-        await this.props.onSubmit({
-            contributor_id : this.props.contributorId,
-            amount: this.state.amount,
-            date: Moment().format('YYYY,MM,DD')
-        })
+        await this.props.onSubmit(new DepositType
+            (
+            this.props.contributor,
+            this.state.amount,
+            Moment().toDate()
+            )
+        )
         this.close();
     }
 
     close() {
         this.setState({ showModal: false });
-       this.setState({amount: ''});
+        this.setState({ amount: 0 });
     }
 
     open() {

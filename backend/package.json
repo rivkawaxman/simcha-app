@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon npm-run ts-node app.ts -V"
+    "start": "nodemon --exec ts-node app.ts -V"
   },
   "keywords": [],
   "author": "",
