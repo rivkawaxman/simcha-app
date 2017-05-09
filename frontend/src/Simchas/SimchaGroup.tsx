@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SimchaGroupProps, SimchaGroupState } from './interfaces';
 import Simcha from './Simcha';
-import { Simcha as SimchaType } from '../../../types/Simcha';
+import { Simcha as SimchaType } from '../Simcha';
 import SimchaContributions from './SimchaContributions';
 
 export default class SimchaGroup extends React.Component<SimchaGroupProps, SimchaGroupState> {

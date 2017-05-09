@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import * as Moment from 'moment';
-import {Simcha} from '../../../types/Simcha';
+import {Simcha} from '../Simcha';
 import {NewSimchaProps, NewSimchaState} from './interfaces';
 
 export default class NewSimcha extends React.Component<NewSimchaProps, NewSimchaState> {

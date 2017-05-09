@@ -1,7 +1,7 @@
 import * as React from 'react'
 import axios from 'axios';
 import NewSimcha from "./NewSimcha";
-import { Simcha } from "../../../types/Simcha";
+import { Simcha } from "../Simcha";
 import { SimchasState } from './interfaces';
 import SimchaTable from "./SimchaTable";
 

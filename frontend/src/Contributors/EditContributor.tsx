@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal } from 'react-bootstrap'
 import * as Moment from 'moment';
-import {Contributor} from '../../../types/Simcha';
+import {Contributor} from '../Simcha';
 import {EditContributorProps, EditContributorState} from './interfaces';
 
 export default class EditContributor extends React.Component<EditContributorProps, EditContributorState> {

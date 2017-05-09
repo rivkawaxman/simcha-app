@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Modal } from 'react-bootstrap'
 import * as Moment from 'moment';
-import { Deposit as DepositType} from '../../../types/Simcha';
+import { Deposit as DepositType} from '../Simcha';
 import { DepositProps, DepositState } from './interfaces';
 
 export default class Deposit extends React.Component<DepositProps, DepositState> {

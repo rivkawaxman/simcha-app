@@ -1,4 +1,4 @@
-import * as Types from '../../../types/Simcha';
+import * as Types from '../Simcha';
 
 export interface SimchasState {
     simchas: Types.Simcha[];

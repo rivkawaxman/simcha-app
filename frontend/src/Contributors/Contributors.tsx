@@ -4,7 +4,7 @@ import * as Numeral from 'numeral';
 import NewContributor from "./NewContributor"
 import ContributorTable from "./ContributorTable";
 import {ContributorsState} from "./interfaces";
-import {Contributor, Deposit} from '../../../types/Simcha';
+import {Contributor, Deposit} from '../Simcha';
 
 export default class Contributors extends React.Component<any, ContributorsState> {
 

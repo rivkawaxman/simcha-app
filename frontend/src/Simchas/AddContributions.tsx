@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
 import * as Numeral from 'numeral';
 import * as Moment from 'moment';
-import {SimchaContributor, Contributor, Contribution} from '../../../types/Simcha';
+import {SimchaContributor, Contributor, Contribution} from '../Simcha';
 import {AddContributionProps, AddContributionState} from './interfaces';
 
 export default class AddContributions extends React.Component<AddContributionProps, AddContributionState> {
