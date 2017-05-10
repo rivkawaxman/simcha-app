@@ -18,7 +18,6 @@ export default function ContributorTable(props: ContributorTableProps) {
                     </tr>
                 </thead>
                 {createTable(props)}
-
             </table>
         </div>
     )
@@ -41,6 +40,6 @@ function createTable(props:ContributorTableProps) {
             </tbody>
         );
     }
-    return '';
+    return <tbody></tbody>;
 
 }

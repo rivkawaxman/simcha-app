@@ -1,11 +1,12 @@
 import * as express from 'express';
 const router = express.Router();
 import db from '../db';
+import {Contribution, Simcha, Contributor} from '../../frontend/src/Simcha';
 
 
 router.get('/', async (req, res) => {
     try {
-        let simchas = await db.simchas.getAll();
+        let simchas:Simcha[] = await db.simchas.getAll();
         res.json(simchas);
     } catch (e) {
         console.log(e);
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        let simchaId = await db.simchas.add(req.body.name, req.body.date);
+        let simchaId:number = await db.simchas.add(req.body.simcha);
         res.json("Simcha id = " + simchaId);
     }
     catch (e) {
@@ -35,7 +36,7 @@ router.post('/delete', async (req, res) => {
 
 router.post('/contributions', async (req, res) => {
     try {
-        let contributions = await db.simchas.getContributions(req.body.id);
+        let contributions:Contribution[] = await db.simchas.getContributions(req.body.id);
         res.json(contributions);
     } catch (e) {
         console.log(e);
@@ -45,11 +46,12 @@ router.post('/contributions', async (req, res) => {
 
 router.post('/addContributions', async (req, res) => {
     try {
-        let dunno = await db.simchas.addContributions(req.body.contributions);
-        for (let c of req.body.contributions) {
-            let result = await db.contributors.getCurrentBAlance(c.contributor_id);
+        let contributions:Contribution[] = req.body.contributions;
+        let dunno = await db.simchas.addContributions(contributions);
+        for (let c of contributions) {
+            let result = await db.contributors.getCurrentBAlance(c.contributor.id);
             let balance = result[0].currentBalance;
-            await db.contributors.updateBalance(c.contributor_id, (balance - c.amount));
+            await db.contributors.updateBalance(c.contributor.id, (balance - c.amount));
         }
         res.json({ "msg": "success" })
     }

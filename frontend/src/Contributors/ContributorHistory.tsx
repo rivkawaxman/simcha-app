@@ -20,7 +20,6 @@ export default class ContributorHistory extends React.Component<ContributorHisto
         let result = await axios.post('/api/contributors/history', { id: this.props.contributorId });
         let history = result.data;
         this.setState({ history });
-        console.log(this.state.history);
     }
 
     close() {

@@ -14,6 +14,7 @@ export default class Simchas extends React.Component<any, SimchasState> {
         }
         this.addNewSimcha = this.addNewSimcha.bind(this);
         this.deleteSimcha = this.deleteSimcha.bind(this);
+        this.updateSimchas = this.updateSimchas.bind(this);
     }
 
     async componentDidMount() {
@@ -29,6 +30,11 @@ export default class Simchas extends React.Component<any, SimchasState> {
 
     async deleteSimcha(id: number) {
         await axios.post('api/simchas/delete', { id: id });
+        let result = await axios.get('/api/simchas/');
+        this.setState({ simchas: result.data });
+    }
+
+    async updateSimchas(){
         let result = await axios.get('/api/simchas/');
         this.setState({ simchas: result.data });
     }
@@ -54,7 +60,7 @@ export default class Simchas extends React.Component<any, SimchasState> {
                 <div className="row">
                     <span className="col-md-2"> </span>
                     <div className="col-md-8 simcha-table">
-                        <SimchaTable simchas={this.state.simchas} deleteSimcha={this.deleteSimcha} />
+                        <SimchaTable simchas={this.state.simchas} deleteSimcha={this.deleteSimcha} updateSimchas={this.updateSimchas} />
                     </div>
                     <span className="col-md-2"> </span>
                 </div>

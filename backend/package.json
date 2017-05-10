@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node app.ts -V"
+    "start": "nodemon --exec ts-node app.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "knex": "^0.13.0",
+    "moment": "^2.18.1",
     "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "npm-run": "^4.1.2",

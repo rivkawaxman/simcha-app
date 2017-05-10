@@ -23,13 +23,14 @@ export default class SimchaGroup extends React.Component<SimchaGroupProps, Simch
         this.setState({ showDetails: false });
     }
 
+
     renderDetails(simcha) {
         if (this.state.showDetails) {
             return (
-                <SimchaContributions key={simcha.id + 'cont'} simcha={simcha} />
+                <SimchaContributions key={simcha.id + 'cont'} simcha={simcha} updateSimchas={this.props.updateSimchas}/>
             )
         }
-        return '';
+        return <tr></tr>
     }
 
     deleteSimcha(){

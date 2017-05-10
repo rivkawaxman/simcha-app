@@ -1,10 +1,10 @@
 class Simcha {
     id: number;
     name: string;
-    date: Date;
+    date: Date|null;
     totalContributions: number;
     contributions: Contribution[];
-    constructor(name: string, date: Date) {
+    constructor(name: string, date: Date|null) {
         this.name = name;
         this.date = date;
     }
@@ -21,12 +21,12 @@ class Contributor {
     firstName: string;
     lastName: string;
     cellNumber: string;
-    dateCreated: Date;
+    dateCreated: Date|null;
     alwaysInclude: boolean;
     currentBalance: number;
     contributions: Contribution[];
     deposits: Deposit[];
-    constructor(firstName: string, lastName: string, cellNumber: string, dateCreated: Date, alwaysInclude: boolean) {
+    constructor(firstName: string, lastName: string, cellNumber: string, dateCreated: Date|null, alwaysInclude: boolean) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.cellNumber = cellNumber;

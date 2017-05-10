@@ -13,20 +13,17 @@ export default class Simcha extends React.Component<SimchaProps, SimchaState> {
         this.state = {
             detailOpen: false
         }
-        this.delete = this.delete.bind(this);
         this.openDetails = this.openDetails.bind(this);
         this.closeDetails = this.closeDetails.bind(this);
+        this.prompt = this.prompt.bind(this);
     }
     prompt() {
-        let yes = alert("Are you sure want to delete that simcha?");
+        let yes = confirm("Are you sure want to delete that simcha?");
         if(yes){
-            this.delete();
+            this.props.onClickDelete(this.props.simcha.id);
         }
     }
 
-    delete() {
-        this.props.onClickDelete(this.props.simcha.id);
-    }
 
     openDetails() {
         this.setState({ detailOpen: true });
@@ -45,7 +42,8 @@ export default class Simcha extends React.Component<SimchaProps, SimchaState> {
                 {this.renderDetails()}
                 <td>{this.props.simcha.name}</td>
                 <td>
-                    {Moment(this.props.simcha.date).format("MMMM DD, YYYY")}
+                    {this.props.simcha.date === null ? '' :
+                    Moment(this.props.simcha.date).format("MMMM DD, YYYY")}
                 </td>
                 <td> {Numeral(this.props.simcha.totalContributions).format('$0,0.00')}</td>
                 <td>
@@ -56,7 +54,6 @@ export default class Simcha extends React.Component<SimchaProps, SimchaState> {
     }
 
     renderDetails() {
-        console.log(this.state.detailOpen)
         if (!this.state.detailOpen) {
             return (
                 <td className="details-column" onClick={this.openDetails}>

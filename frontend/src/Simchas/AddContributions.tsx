@@ -80,7 +80,8 @@ export default class AddContributions extends React.Component<AddContributionPro
             return (<h5>Everyone contributed!!</h5>)
         }
         else {
-            return (<table className="table table-bordered">
+            return (
+            <table className="table table-bordered">
                 <thead>
                     <tr>
                         <th></th>
@@ -102,10 +103,9 @@ export default class AddContributions extends React.Component<AddContributionPro
                                     />
                                     <span className="control__indicator"></span>
                                 </label>
-
                             </td>
                             <td>{c.contributor.firstName} {c.contributor.lastName}</td>
-                            <td><input className="form-control" type="number" value={c.amountGave} name="amountToGive" id={index.toString()} onChange={(e) => { this.changeField(e) }} /></td >
+                            <td><input className="form-control" type="number" value={c.amountGave} name="amountGave" id={index.toString()} onChange={(e) => { this.changeField(e) }} /></td >
                             <td>{Numeral(c.contributor.currentBalance).format('$0,0.00')}</td>
                             <td>{c.contributor.alwaysInclude ? <i className="fa fa-check-circle"></i> : ""}</td>
                         </tr>

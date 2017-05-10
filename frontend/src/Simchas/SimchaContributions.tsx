@@ -22,6 +22,7 @@ export default class SimchaContributors extends React.Component<SimchaContributi
     async addContributor(){
         let result = await axios.post('/api/simchas/contributions', { id: this.props.simcha.id });
         this.setState({ contributions: result.data });
+        this.props.updateSimchas();
     }
 
 
@@ -29,11 +30,11 @@ export default class SimchaContributors extends React.Component<SimchaContributi
         return (
             <tr>
                 <td> </td>
-                <td className="col-span-3">
+                <td colSpan={3} className="col-span-3">
                     <div className="row">
                       
-                        <h4 className="details-title col-md-2">  <i className="fa fa-gift"></i>Contributions</h4>
-                        <span className="col-md-8"> </span>
+                        <h4 className="details-title col-md-3">  <i className="fa fa-gift"></i>Contributions</h4>
+                        <span className="col-md-7"> </span>
                         <AddContributions contributions={this.state.contributions} simcha={this.props.simcha} onAdd={this.addContributor}/>
                     </div>
                     <div>

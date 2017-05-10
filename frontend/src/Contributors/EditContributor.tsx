@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Modal } from 'react-bootstrap'
 import * as Moment from 'moment';
-import {Contributor} from '../Simcha';
-import {EditContributorProps, EditContributorState} from './interfaces';
+import { Contributor } from '../Simcha';
+import { EditContributorProps, EditContributorState } from './interfaces';
 
 export default class EditContributor extends React.Component<EditContributorProps, EditContributorState> {
 
@@ -19,8 +19,8 @@ export default class EditContributor extends React.Component<EditContributorProp
     }
 
     componentDidMount() {
-        this.setState({contributor : this.props.contributor});
-          
+        this.setState({ contributor: this.props.contributor });
+
     }
 
     async handleSubmit(event) {
@@ -92,7 +92,9 @@ export default class EditContributor extends React.Component<EditContributorProp
                             <div className="row">
                                 <div className="form-group col-md-6">
                                     <span>Date Created:</span>
-                                    <input type="date" name="dateCreated" className="form-control" value={Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')} onChange={(e) => { this.changeField(e) }} />
+                                    <input type="date" name="dateCreated" className="form-control"
+                                        value={this.state.contributor.dateCreated === null ? '' : Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')}
+                                        onChange={(e) => { this.changeField(e) }} />
                                 </div>
                                 <div className="form-group col-md-6 checkbox-group">
                                     <input type="checkbox" name="alwaysInclude"

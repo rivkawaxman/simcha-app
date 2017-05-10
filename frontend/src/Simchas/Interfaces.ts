@@ -27,11 +27,13 @@ export interface NewSimchaState {
 export interface SimchaTableProps {
     simchas: Types.Simcha[];
     deleteSimcha: (id: number) => void;
+    updateSimchas: () => void;
 }
 
 export interface SimchaGroupProps {
     simcha: Types.Simcha;
     deleteSimcha: (id: number) => void;
+    updateSimchas: () => void;
 
 }
 
@@ -41,6 +43,7 @@ export interface SimchaGroupState {
 
 export interface SimchaContributionsProps {
     simcha: Types.Simcha;
+    updateSimchas: ()=> void;
 }
 
 export interface SimchaContributionsState {

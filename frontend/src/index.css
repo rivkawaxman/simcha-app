@@ -230,6 +230,8 @@ content: '';
   column-span: 3;
 }
 
-
+.action-col{
+     width: 12px; 
+}
 
 

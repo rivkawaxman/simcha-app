@@ -5,7 +5,7 @@ import db from '../db';
 
 router.get('/', async (req, res) => {
     try {
-        let hello = await db.contributors.getAll();
+        let contributors = await db.contributors.getAll();
         let total = await db.contributors.total();
     res.json({contributors: contributors, total: total});
     } catch (e) {

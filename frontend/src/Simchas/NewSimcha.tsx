@@ -10,7 +10,7 @@ export default class NewSimcha extends React.Component<NewSimchaProps, NewSimcha
         super();
         this.state = {
             showModal: false,
-            simcha: new Simcha('', new Date())
+            simcha: new Simcha('', null)
         }
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
@@ -28,7 +28,7 @@ export default class NewSimcha extends React.Component<NewSimchaProps, NewSimcha
 
     close() {
         this.setState({ showModal: false });
-         this.setState({simcha: new Simcha('', new Date())});
+         this.setState({simcha: new Simcha('', null)});
     }
 
     open() {
@@ -60,7 +60,7 @@ export default class NewSimcha extends React.Component<NewSimchaProps, NewSimcha
                             </div>
                             <div className="form-group">
                                 <span>Date:</span>
-                                <input type="date" name="date" className="form-control" value={Moment(this.state.simcha.date).format('YYYY-MM-DD')} 
+                                <input type="date" name="date" className="form-control" value={this.state.simcha.date === null ? '' : Moment(this.state.simcha.date).format('YYYY-MM-DD')} 
                                 onChange={(event) => {this.setState({simcha: new Simcha(this.state.simcha.name, new Date(event.target.value))})}}/>
                             </div>
                         </Modal.Body>
