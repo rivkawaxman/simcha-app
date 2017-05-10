@@ -31,16 +31,7 @@ export default class EditContributor extends React.Component<EditContributorProp
 
     close() {
         this.setState({ showModal: false });
-        // this.setState({
-        //     contributor: {
-        //         firstName: '',
-        //         lastName: '',
-        //         cellNumber: '',
-        //         currentBalance: '',
-        //         dateCreated: '',
-        //         alwaysInclude: false
-        //     }
-        // });
+        //this.setState({contributor: new Contributor('', '', '', new Date(), false)});
     }
 
     open() {
@@ -64,7 +55,7 @@ export default class EditContributor extends React.Component<EditContributorProp
             <span>
                 <i className="fa fa-pencil action-icon" onClick={this.open}></i>
                 <Modal show={this.state.showModal} onHide={this.close}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={(e) => {this.handleSubmit(e)}}>
                         <Modal.Header closeButton>
                             <Modal.Title>Edit Contributor</Modal.Title>
                         </Modal.Header>
@@ -86,7 +77,7 @@ export default class EditContributor extends React.Component<EditContributorProp
                                 </div>
                                 <div className="form-group col-md-6">
                                     <span>Current Balance:</span>
-                                    <input type="text" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
+                                    <input type="number" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
                                 </div>
                             </div>
                             <div className="row">

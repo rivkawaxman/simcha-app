@@ -82,15 +82,6 @@ function addContributions(contributions: Contribution[]) {
     return knex('contributions').insert(x);
 }
 
-function getSimcha(result: any): Simcha {
-    return
-}
-
-async function getContributor(id: number): Promise<Contributor> {
-    return await knex('contributors').where('id', id).then((c) => {
-        return new Contributor(c.firstName, c.lastName, c.cellNumber, c.dateCreated, c.alwaysInclude);
-    });
-}
 
 export {
     getAll,

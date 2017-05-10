@@ -62,7 +62,7 @@ export default class Deposit extends React.Component<DepositProps, DepositState>
 
                             <div className="form-group">
                                 <span>Amount:</span>
-                                <input type="text" name="amount" className="form-control" value={this.state.amount} onChange={(e) => { this.changeField(e) }} />
+                                <input type="number" name="amount" className="form-control" value={this.state.amount} onChange={(e) => { this.changeField(e) }} />
                             </div>
 
 

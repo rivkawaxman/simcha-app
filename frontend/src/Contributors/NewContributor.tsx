@@ -75,14 +75,14 @@ export default class NewContributor extends React.Component<NewContributorProps,
                                 </div>
                                 <div className="form-group col-md-6">
                                     <span>Initial Deposit:</span>
-                                    <input type="text" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
+                                    <input type="number" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-6">
                                     <span>Date Created:</span>
                                     <input type="date" name="dateCreated" className="form-control" 
-                                    value={this.state.contributor.dateCreated === null? '' : Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')} 
+                                    value={this.state.contributor.dateCreated === null ? '' : Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')} 
                                     onChange={(e) => { this.changeField(e) }} />
                                 </div>
                                 <div className="form-group col-md-6 checkbox-group">

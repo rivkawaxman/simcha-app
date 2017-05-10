@@ -34,7 +34,7 @@ function createTable(props:ContributorTableProps) {
                 <Contributor 
                     key={c.id} 
                     onClickDelete={() => {props.deleteContributor(c.id)}}
-                    onClickEdit={() => {props.editContributor(c)}}
+                    onClickEdit={props.editContributor}
                     onClickDeposit={ props.deposit}
                     contributor={c} />)}
             </tbody>

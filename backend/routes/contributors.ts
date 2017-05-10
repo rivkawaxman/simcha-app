@@ -1,6 +1,7 @@
 import * as express from 'express';
 const router = express.Router();
 import db from '../db';
+import { Deposit } from '../../frontend/src/Simcha';
 
 
 router.get('/', async (req, res) => {
@@ -46,13 +47,16 @@ router.post('/edit', async (req, res) => {
 });
 
 router.post('/deposit', async (req, res) => {
-    let newBalance = 0;
+    let newBalance:number;
     try {
-        await db.contributors.deposit(req.body.deposit);
-        let result = await db.contributors.getCurrentBAlance(req.body.deposit.contributor_id);
-        let balance = result[0].currentBalance;
-        newBalance = parseInt(balance) + parseInt(req.body.deposit.amount);
-        await db.contributors.updateBalance(req.body.deposit.contributor_id, (newBalance));
+        console.log(req.body);
+        let deposit:Deposit = req.body.deposit;
+        console.log('deposit:' + deposit);
+        await db.contributors.deposit(deposit);
+        let result = await db.contributors.getCurrentBAlance(deposit.contributor.id);
+        let balance:number = Number(result[0].currentBalance);
+        newBalance = (balance + Number(deposit.amount));
+        await db.contributors.updateBalance(deposit.contributor.id, (newBalance));
     }
     catch (e) {
         console.log(e);
