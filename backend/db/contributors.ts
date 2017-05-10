@@ -64,13 +64,23 @@ function history(id: number) {
         .from('contributors')
         .join('contributions', 'contributors.id', 'contributions.contributor_id')
         .join('simchas', 'contributions.simcha_id', 'simchas.id')
-        .where('contributors.id', id).union(() => {
+        .where('contributors.id', id).union(
             knex.select(knex.raw('"Deposit" as type'), 'deposits.amount', knex.raw('"" as name'), 'deposits.date')
                 .from('contributors')
                 .join('deposits', 'contributors.id', 'deposits.contributor_id')
                 .where('contributors.id', id)
-        })
-        .orderBy('date', 'desc');
+        )
+        .orderBy('date', 'desc').then((result) =>{
+           let history:History[] = result.map(r => {
+               return{
+                   type: r.type,
+                   amount: r.amount,
+                   simcha: r.name,
+                   date: r.date
+               }
+           });
+           return history;
+        });
 
 }
 

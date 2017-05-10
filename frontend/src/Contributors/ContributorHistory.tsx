@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
-//import axios from 'axios';
+import axios from 'axios';
 import * as Moment from 'moment';
 import * as Numeral from 'numeral';
 import {ContributorHistoryProps, ContributorHistoryState} from './interfaces';
@@ -17,9 +17,9 @@ export default class ContributorHistory extends React.Component<ContributorHisto
     }
 
     async componentDidMount() {
-        //let result = await axios.post('/api/contributors/history', { id: this.props.contributorId });
-        //let history = result.data;
-        //this.setState({ history });
+        let result = await axios.post('/api/contributors/history', { id: this.props.contributorId });
+        let history = result.data;
+        this.setState({ history });
     }
 
     close() {

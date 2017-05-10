@@ -1,12 +1,12 @@
 import * as express from 'express';
 const router = express.Router();
 import db from '../db';
-import { Deposit } from '../../frontend/src/Simcha';
+import { Deposit, History, Contributor } from '../../frontend/src/Simcha';
 
 
 router.get('/', async (req, res) => {
     try {
-        let contributors = await db.contributors.getAll();
+        let contributors:Contributor[] = await db.contributors.getAll();
         let total = await db.contributors.total();
     res.json({contributors: contributors, total: total});
     } catch (e) {
@@ -66,7 +66,7 @@ router.post('/deposit', async (req, res) => {
 
 router.post('/history', async (req, res) => {
     try {
-        let history = await db.contributors.history(req.body.id);
+        let history:History[] = await db.contributors.history(req.body.id);
         res.json(history);
     }
     catch (e) {
