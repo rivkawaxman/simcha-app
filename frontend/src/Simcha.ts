@@ -74,11 +74,22 @@ class History {
     }
 }
 
+interface User{
+    id?:number;
+    username:string;
+    password:string;
+    firstName:string;
+    lastName:string;
+    email:string;
+}
+
+
 export {
     Simcha,
     Contributor,
     Contribution,
     Deposit,
     History,
-    SimchaContributor
+    SimchaContributor,
+    User
 }

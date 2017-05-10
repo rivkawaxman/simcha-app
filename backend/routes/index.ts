@@ -9,4 +9,8 @@ import contributors from './contributors';
 
 router.use('/contributors', contributors);
 
+import user from './user';
+
+router.use('/user', user);
+
 export default router;
