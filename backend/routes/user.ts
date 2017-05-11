@@ -1,64 +1,76 @@
 import * as express from 'express';
 const router = express.Router();
 import db from '../db';
-import _ from 'lodash';
+import * as _ from 'lodash';
 var config = require('../config');
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { User } from '../../frontend/src/Simcha';
 
-function createToken(user) {
-    return jwt.sign(_.omit(user, 'password'), config.secretKey, { expiresIn: 60 * 60 * 5 });
+function createToken(user: User) {
+    return jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '1d' });
 }
 
 router.post('/createUser', async (req, res) => {
-    let user: User = req.body.User;
-    if (!req.body.username || !req.body.password) {
-        return res.status(400).send("You must send the username and password");
-    }
-    let userdb = await db.users.getUser(req.body.username);
-    if (!userdb) {
-        userdb = {
-            username: user.username,
-            password: user.password,
-            email: user.email,
-            firstName: user.firstName,
-            lastName: user.lastName
+    try {
+        let user: User = req.body.user;
+        if (!user.username || !user.password) {
+            return res.status(400).send("You must send the username and password");
         }
-        await db.users.createUser(userdb);
-        return res.status(201).send({ id_token: createToken(userdb) });
+        let userdb = await db.users.getUser(user.username);
+        if (!userdb) {
+            userdb = {
+                username: user.username,
+                password: user.password,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName
+            }
+            await db.users.createUser(userdb);
+            return res.status(201).send({ id_token: createToken(userdb) });
+        }
+        else {
+            return res.status(400).send("A user with that username already exists");
+        }
     }
-    else {
-        return res.status(400).send("A user with that username already exists");
+    catch (e) {
+        console.log(e);
     }
 });
 
 router.post('/login', async (req, res) => {
-    console.log(req.body);
-    if (!req.body.username || !req.body.password) {
-        return res.status(400).send("You must send the username and password");
+    try {
+        console.log(req.body.username);
+        if (!req.body.username || !req.body.password) {
+            return res.status(400).send("You must send the username and password");
+        }
+        let userdb:User = await db.users.getUser(req.body.username);
+        console.log('password' + userdb.password);
+        if (!userdb.id) {
+            return res.status(401).send("The username does not exist");
+        }
+        
+        else if (userdb.password !== req.body.password) {
+            return res.status(401).send("The username or password don't match");
+        }
+        res.status(201).send({
+            id_token: createToken(userdb)
+        });
     }
-    let userdb = await db.users.getUser(req.body.username);
-    if(!userdb){
-        return res.status(401).send("The username does not existing");
+    catch (e) {
+        console.log(e);
     }
-    else if(userdb.password !== req.body.password){
-        return res.status(401).send("The username or password don't match");
-    }
-    res.status(201).send({
-      id_token: createToken(userdb)
-    });
 });
 
-router.get('./check/:username', async(req,res)=> {
-    if(!req.params.username){
+router.post('/check', async (req, res) => {
+    if (!req.body.username) {
         return res.status(400).send("You must send a username");
     }
-    let userdb = await db.users.getUser(req.params.username);
-    if(!userdb){
-        res.status(201).send({username: "OK"});
+    let userdb = await db.users.getUser(req.body.username);
+    if (!userdb) {
+        res.status(200).send("ok");
     }
-    else{
-        res.status(400).send("A user with that username already exists");
+    else {
+        res.status(200).send("error");
     }
 });
 

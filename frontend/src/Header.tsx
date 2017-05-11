@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function Header(props) {
     return (
@@ -18,18 +18,21 @@ export default function Header(props) {
                     <ul className="nav navbar-nav">
                         <li className={isActive('/')}><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
                         <li className={isActive('/simchas')}><Link to="/simchas">Simchas</Link></li>
-                       <li className={isActive('/contributors')}><Link to="/contributors">Contributors</Link></li>
+                        <li className={isActive('/contributors')}><Link to="/contributors">Contributors</Link></li>
                     </ul>
-                 
-                  
+                    <ul className="nav navbar-nav navbar-right">
+                        <li><Link to="/login">Login</Link></li>
+                        <li><Link to="/register">Register</Link></li>
+                    </ul>
+
                 </div>
             </div>
         </nav>
     )
 }
 
-function isActive(path){
-    if(location.pathname === path){
+function isActive(path) {
+    if (location.pathname === path) {
         return "active";
     }
     return '';

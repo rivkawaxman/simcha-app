@@ -234,4 +234,48 @@ content: '';
      width: 12px; 
 }
 
+.pink-box{
+  background-color:  #f44289;
+  color:white;
+  font-size: 16.5em;
+  text-align: center;
+}
+
+.register-title{
+   color:#9b999a;
+  font-family: 'Crete Round', serif;
+  text-align: center;
+  margin-top:30px;
+}
+
+.logo.pink{
+  color: #f44289;
+}
+
+.line{
+  border-bottom: #9b999a solid 1px;
+  margin-bottom: 20px;
+}
+
+.form-group{
+  margin-bottom: 12px;
+}
+
+.register-box{
+  margin-top: 10%;
+}
+
+.register-btn{
+  float:right;
+  margin-top:10px;
+  /*margin-right:16px;*/
+}
+
+.error-thingy{
+  font-size: 1.6em;
+  color:#f44256;
+  position: absolute;
+  margin-top:6px;
+  right:25px;
+}
 

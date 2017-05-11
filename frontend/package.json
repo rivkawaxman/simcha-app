@@ -5,6 +5,7 @@
   "proxy": "http://localhost:4000",
   "dependencies": {
     "@types/jest": "^19.2.2",
+    "@types/js-cookie": "^2.0.28",
     "@types/node": "^7.0.16",
     "@types/numeral": "0.0.20",
     "@types/react": "^15.0.23",
@@ -12,6 +13,8 @@
     "@types/react-dom": "^15.5.0",
     "@types/react-router-dom": "^4.0.4",
     "axios": "^0.16.1",
+    "cookie-parser": "^1.4.3",
+    "js-cookie": "^2.1.4",
     "moment": "^2.18.1",
     "numeral": "^2.0.6",
     "react": "^15.5.4",
