@@ -2,10 +2,12 @@ import knex from './knex';
 import * as Moment from 'moment';
 import { Contribution, Simcha, Contributor } from '../../frontend/src/Simcha';
 
-function getAll() {
+function getAll(userId:number) {
     return knex.select('simchas.id', 'simchas.name', 'simchas.date', knex.raw('sum(contributions.amount) as total'))
         .from('simchas')
-        .leftJoin('contributions', 'simchas.id', 'contributions.simcha_id').groupBy('simchas.id').then((results) => {
+        .leftJoin('contributions', 'simchas.id', 'contributions.simcha_id')
+        .where('simchas.user_id', '=', userId)
+        .groupBy('simchas.id').then((results) => {
             let simchas: Simcha[] = results.map(r => {
                 return {
                     id: r.id,
@@ -20,8 +22,8 @@ function getAll() {
 
 }
 
-function add(simcha: Simcha) {
-    return knex('simchas').insert({ name: simcha.name, date: Moment(simcha.date).format('YYYY-MM-DD') });
+function add(simcha: Simcha, userId:number) {
+    return knex('simchas').insert({ name: simcha.name, date: Moment(simcha.date).format('YYYY-MM-DD'), user_id: userId });
 }
 
 function remove(id: number) {
@@ -82,6 +84,33 @@ function addContributions(contributions: Contribution[]) {
     return knex('contributions').insert(x);
 }
 
+function getUpcoming(userId:number) {
+    console.log(userId);
+    return knex.select('simchas.id', 'simchas.name', 'simchas.date', knex.raw('sum(contributions.amount) as total'))
+        .from('simchas')
+        .leftJoin('contributions', 'simchas.id', 'contributions.simcha_id').groupBy('simchas.id')
+        .where('simchas.user_id', '=', userId)
+        .andWhere('simchas.date', '>=', Moment().format('YYYY-MM-DD'))
+        .orderBy('simchas.date')
+        .then((results) => {
+            let filtered;
+            if (results.length > 3) {
+                filtered = [results[0], results[1], results[2]];
+            }
+            else {
+                filtered = results;
+            }
+            let simchas: Simcha[] = filtered.map(r => {
+                return {
+                    name: r.name,
+                    date: r.date,
+                    totalContributions: r.total
+                }
+            });
+            return simchas;
+        })
+}
+
 
 export {
     getAll,
@@ -89,5 +118,6 @@ export {
     remove,
     edit,
     getContributions,
-    addContributions
+    addContributions,
+    getUpcoming
 }

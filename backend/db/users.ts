@@ -21,11 +21,32 @@ function getUser(username: string) {
 }
 
 
+function getUserById(id: number) {
+    return knex('users').where("id", "=", id)
+        .then((r) => {
+            r = r[0];
+            let user: User;
+            if (r) {
+                user = {
+                    id: r.id,
+                    password: r.password,
+                    username: r.username,
+                    firstName: r.firstName,
+                    lastName: r.lastName,
+                    email: r.email
+                };
+            }
+            return user ? user : undefined;
+        });
+}
+
+
 function createUser(user: User) {
     return knex('users').insert({ username: user.username, password: user.password, firstName: user.firstName, lastName: user.lastName, email: user.email });
 }
 
 export {
     getUser,
-    createUser
+    createUser,
+    getUserById
 }

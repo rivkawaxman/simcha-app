@@ -6,8 +6,8 @@ import { Deposit, History, Contributor } from '../../frontend/src/Simcha';
 
 router.get('/', async (req, res) => {
     try {
-        let contributors:Contributor[] = await db.contributors.getAll();
-        let total = await db.contributors.total();
+        let contributors:Contributor[] = await db.contributors.getAll(req.user);
+        let total = await db.contributors.total(req.user);
     res.json({contributors: contributors, total: total});
     } catch (e) {
         console.log(e);
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        let id = await db.contributors.add(req.body.contributor);
+        let id = await db.contributors.add(req.body.contributor, req.user);
         res.json("contributor id = " + id);
     }
     catch (e) {

@@ -21,6 +21,7 @@ app.use('/api', (req, res, next) => {
         }
         else{
             req.user = decoded.userId;
+            next();
         }
     });
  }

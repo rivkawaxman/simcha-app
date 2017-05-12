@@ -10,7 +10,7 @@ export default class NewContributor extends React.Component<NewContributorProps,
         super();
         this.state = {
             showModal: false,
-            contributor: new Contributor('', '', '', null, false)
+            contributor: new Contributor('', '', '',  Moment().toDate(), false)
         }
 
         this.open = this.open.bind(this);
@@ -28,7 +28,7 @@ export default class NewContributor extends React.Component<NewContributorProps,
     close() {
         this.setState({ showModal: false });
         this.setState({
-            contributor:  new Contributor('', '', '', null, false)
+            contributor:  new Contributor('', '', '', Moment().toDate(), false)
         });
     }
 
@@ -79,12 +79,12 @@ export default class NewContributor extends React.Component<NewContributorProps,
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="form-group col-md-6">
+                                {/*<div className="form-group col-md-6">
                                     <span>Date Created:</span>
                                     <input type="date" name="dateCreated" className="form-control" 
                                     value={this.state.contributor.dateCreated === null ? '' : Moment(this.state.contributor.dateCreated).format('YYYY-MM-DD')} 
                                     onChange={(e) => { this.changeField(e) }} />
-                                </div>
+                                </div>*/}
                                 <div className="form-group col-md-6 checkbox-group">
                                     <input type="checkbox" name="alwaysInclude" 
                                         checked={this.state.contributor.alwaysInclude}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import Input from '../Input';
 import axios from 'axios';
 import { RegisterState } from './interfaces';
+import * as Token from './Token';
 
 export default class Register extends React.Component<any, RegisterState> {
 
@@ -22,6 +23,7 @@ export default class Register extends React.Component<any, RegisterState> {
             emailError: false
 
         }
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -64,7 +66,15 @@ export default class Register extends React.Component<any, RegisterState> {
                 }
             });
         if (!error) {
-            await axios.post('/api/user/createUser', {user:this.state.user});
+            await axios.post('/api/user/createUser', {user:this.state.user}).then((r) =>{
+               if(r.status === 200){
+                   //debugger;
+                   let token:string= r.data.id_token;
+                   Token.SaveTokenAsCookie(token);
+                   this.props.history.push('/');
+                   //this.context.router.push('/');
+               }
+            });
         }
     }
 

@@ -13,4 +13,8 @@ import user from './user';
 
 router.use('/user', user);
 
+import dashboard from './dashboard';
+
+router.use('/dashboard', dashboard);
+
 export default router;

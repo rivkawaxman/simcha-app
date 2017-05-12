@@ -267,7 +267,7 @@ content: '';
 
 .register-btn{
   float:right;
-  margin-top:10px;
+  margin-top:20px;
   /*margin-right:16px;*/
 }
 
@@ -277,5 +277,115 @@ content: '';
   position: absolute;
   margin-top:6px;
   right:25px;
+}
+
+.login-btn{
+  text-align: center;
+}
+
+.login-btn>.btn{
+  width:75px;
+ margin-top:20px;
+}
+
+.register-title>.logo{
+  margin-top:10px;
+  margin-bottom: 40px;
+}
+
+.heading>.avatar{
+  /*margin-top: 20px;*/
+  width: 120px;
+	height: 120px;
+  border-radius: 50%;
+  background-color: #9b999a;
+  color: white;
+  font-size: 6em;
+  text-align: center;
+}
+
+.heading>.user{
+   color:#9b999a;
+  font-family: 'Crete Round', serif;
+  font-size: 5em;
+  padding-top:18px;
+  padding-left: 26px;
+}
+
+.heading-box{
+    margin-left: 30%;
+    margin-bottom: 20px;
+}
+
+.small-boxes{
+  margin-left: 50px;
+}
+
+.small-boxes>.box{
+  text-align: center;
+  height: 250px;
+  padding-bottom: 50px;
+  background-color: #efefef;
+  font-family: 'Crete Round', serif;
+  font-size:2em;
+   color:#9b999a;
+}
+
+.small-boxes>.box>.number{
+  line-height: 1;
+   font-size: 6em;
+ color: #f44289;
+
+}
+
+.small-boxes>.box>.currency{
+  line-height: 1.2;
+  margin-top:30px;
+   font-size: 4em;
+ color: #f44289;
+}
+
+.space-between{
+  width:8%;
+}
+
+.big-box{
+    background-color: #efefef;
+    margin-top: 30px;
+    margin-left: 62px;
+    margin-right: 95px;
+    height: 240px;
+    font-family: 'Crete Round', serif;
+}
+
+.cards{
+  margin-top: 15px;
+}
+
+.card{
+  color: #9b999a;
+  font-size:1.2em;
+  padding-left:20px;
+  padding-top:12px;
+  background-color: white;
+  height: 50px;
+  margin: 10px 20px 0px 20px;
+}
+
+.pink.title{
+ text-align: center;
+   padding-top: 7px;
+  font-size:1.7em;
+  color: #f44289;
+}
+
+.card>div>.fa-calendar{
+  padding-right: 10px;
+}
+
+.card>div>.currency{
+  font-size:1.7em;
+  color: #f44289;
+  line-height: .7;
 }
 

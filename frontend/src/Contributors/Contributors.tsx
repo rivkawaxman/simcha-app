@@ -22,31 +22,31 @@ export default class Contributors extends React.Component<any, ContributorsState
 
     async componentDidMount() {
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors: result.data.contributors, total: result.data.total[0].total  });
+        this.setState({ contributors: result.data.contributors, total: result.data.total  });
     }
 
     async addNewContributor(contributor: Contributor) {
         await axios.post('/api/contributors/add', { contributor });
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors:  result.data.contributors, total: result.data.total[0].total });
+        this.setState({ contributors:  result.data.contributors, total: result.data.total });
     }
 
     async deleteContributor(id:number) {
         await axios.post('api/contributors/delete', { id: id });
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors:  result.data.contributors ,total: result.data.total[0].total});
+        this.setState({ contributors:  result.data.contributors ,total: result.data.total});
     }
 
     async editContributor(contributor: Contributor) {
         await axios.post('/api/contributors/edit', { contributor });
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors:  result.data.contributors, total: result.data.total[0].total});
+        this.setState({ contributors:  result.data.contributors, total: result.data.total});
     }
 
     async deposit(deposit:Deposit) {
         await axios.post('/api/contributors/deposit', { deposit: deposit });
         let result = await axios.get('/api/contributors/');
-        this.setState({ contributors:  result.data.contributors , total: result.data.total[0].total});
+        this.setState({ contributors:  result.data.contributors , total: result.data.total});
     }
 
 

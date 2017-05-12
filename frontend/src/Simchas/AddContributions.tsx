@@ -45,6 +45,7 @@ export default class AddContributions extends React.Component<AddContributionPro
 
     close() {
         this.setState({ showModal: false });
+        
     }
 
     changeCheckBox(event) {
@@ -62,16 +63,20 @@ export default class AddContributions extends React.Component<AddContributionPro
 
     async handleSubmit(event) {
         event.preventDefault();
+        let contributors:SimchaContributor[] = [];
         let contributions:Contribution[] = [];
         for (let c of this.state.contributors) {
             if (c.give) {
                 let contribution = new Contribution( this.props.simcha, c.contributor, c.amountGave, Moment().toDate());
-                   
                 contributions.push(contribution);
+            }
+            else{
+                contributors.push(c);
             }
         }
         await axios.post('/api/simchas/addContributions', { contributions: contributions });
         this.close();
+        this.setState({contributors});
         this.props.onAdd();
     }
 

@@ -2,11 +2,11 @@ import knex from './knex';
 import * as Moment from 'moment';
 import { Contributor, Deposit, History } from '../../frontend/src/Simcha';
 
-function getAll() {
-    return knex.select().table('contributors');
+function getAll(userId:number) {
+    return knex.select().table('contributors').where('contributors.user_id', '=',userId);
 }
 
-function add(contributor: Contributor) {
+function add(contributor: Contributor, userId:number) {
     return knex('contributors').insert(
         {
             firstName: contributor.firstName,
@@ -14,7 +14,8 @@ function add(contributor: Contributor) {
             cellNumber: contributor.cellNumber,
             dateCreated: Moment(contributor.dateCreated).format('YYYY-MM-DD'),
             alwaysInclude: contributor.alwaysInclude,
-            currentBalance: contributor.currentBalance
+            currentBalance: contributor.currentBalance,
+            user_id: userId
         }
     );
 }
@@ -84,9 +85,16 @@ function history(id: number) {
 
 }
 
-function total() {
-    return knex('contributors').sum('currentBalance as total').then((result) => {
-        let total: number = result;
+function total(userId:number) {
+    return knex('contributors').sum('currentBalance as total').where('contributors.user_id', '=',userId).then((result) => {
+        let total: number = result[0].total;
+        return total;
+    });
+}
+
+function contributorCount(userId:number):number{
+    return knex('contributors').count().where('contributors.user_id', '=',userId).then((result) => {
+        let total: number = result[0]['count(*)'];
         return total;
     });
 }
@@ -100,5 +108,6 @@ export {
     getCurrentBAlance,
     deposit,
     history,
-    total
+    total,
+    contributorCount
 }

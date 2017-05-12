@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import * as Token from './login/Token';
 
 export default function Header(props) {
     return (
@@ -15,15 +16,10 @@ export default function Header(props) {
                     <Link to="/" className="navbar-brand logo small" href="#"><i className="fa fa-gift gift-icon"></i>Simcha Fund</Link>
                 </div>
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul className="nav navbar-nav">
-                        <li className={isActive('/')}><Link to="/">Home <span className="sr-only">(current)</span></Link></li>
-                        <li className={isActive('/simchas')}><Link to="/simchas">Simchas</Link></li>
-                        <li className={isActive('/contributors')}><Link to="/contributors">Contributors</Link></li>
-                    </ul>
-                    <ul className="nav navbar-nav navbar-right">
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/register">Register</Link></li>
-                    </ul>
+
+                    {renderIfLoggedIn()}
+
+
 
                 </div>
             </div>
@@ -36,4 +32,32 @@ function isActive(path) {
         return "active";
     }
     return '';
+}
+
+function renderIfLoggedIn() {
+    if (Token.TokenExists()) {
+        return (
+            <div>
+            <ul className="nav navbar-nav">
+                <li className={isActive('/')}><Link to="/">Dashboard <span className="sr-only">(current)</span></Link></li>
+                <li className={isActive('/simchas')}><Link to="/simchas">Simchas</Link></li>
+                <li className={isActive('/contributors')}><Link to="/contributors">Contributors</Link></li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+                <li><Link to="/account">My Account</Link></li>
+                <li><Link to="/" onClick={()=>{Token.DeleteTokenCookie()}}>Logout</Link></li>
+            </ul>
+            </div>
+        );
+    }
+    else {
+        return (
+            <ul className="nav navbar-nav navbar-right">
+                <li><Link to="/login">Login</Link></li>
+                <li><Link to="/register">Register</Link></li>
+            </ul>
+        )
+
+    }
+
 }

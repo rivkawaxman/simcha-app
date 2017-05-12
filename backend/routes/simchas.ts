@@ -6,7 +6,8 @@ import {Contribution, Simcha, Contributor} from '../../frontend/src/Simcha';
 
 router.get('/', async (req, res) => {
     try {
-        let simchas:Simcha[] = await db.simchas.getAll();
+        console.log(req.user);
+        let simchas:Simcha[] = await db.simchas.getAll(req.user);
         res.json(simchas);
     } catch (e) {
         console.log(e);
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
 
 router.post('/add', async (req, res) => {
     try {
-        let simchaId:number = await db.simchas.add(req.body.simcha);
+        let simchaId:number = await db.simchas.add(req.body.simcha, req.user);
         res.json("Simcha id = " + simchaId);
     }
     catch (e) {

@@ -3,6 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import * as Moment from 'moment';
 import {Simcha} from '../Simcha';
 import {NewSimchaProps, NewSimchaState} from './interfaces';
+import Input from '../Input';
 
 export default class NewSimcha extends React.Component<NewSimchaProps, NewSimchaState> {
 
@@ -55,12 +56,15 @@ export default class NewSimcha extends React.Component<NewSimchaProps, NewSimcha
                         <Modal.Body>
                             <div className="form-group">
                                 <span>Name:</span>
-                                <input type="text" name="name" className="form-control" value={this.state.simcha.name} 
+                                <Input type="text" name="name" className="form-control" value={this.state.simcha.name} 
+                                required={true}
                                 onChange={(event) => {this.setState({simcha: new Simcha(event.target.value, this.state.simcha.date)})}}/>
                             </div>
                             <div className="form-group">
                                 <span>Date:</span>
-                                <input type="date" name="date" className="form-control" value={this.state.simcha.date === null ? '' : Moment(this.state.simcha.date).format('YYYY-MM-DD')} 
+                                <Input type="date" name="date" className="form-control" 
+                                required={true}
+                                value={this.state.simcha.date === null ? '' : Moment(this.state.simcha.date).format('YYYY-MM-DD')} 
                                 onChange={(event) => {this.setState({simcha: new Simcha(this.state.simcha.name, new Date(event.target.value))})}}/>
                             </div>
                         </Modal.Body>
