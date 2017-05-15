@@ -14,18 +14,22 @@ app.use(bodyParser.json());
 
 app.use('/api', (req, res, next) => {
  let token = req.headers['x-access-token'] || req.cookies.simchaFundToken;
+ console.log('token' + token);
  if (token){
     jwt.verify(token, process.env.SECRET_KEY, (err,decoded) => {
         if(err){
             return res.json({success:false, message:'failed to authenticate token'});
         }
         else{
+            console.log('decoded ' , decoded);
             req.user = decoded.userId;
+            console.log("req.user" + req.user);
             next();
         }
     });
  }
  else{
+     console.log('in else');
      if(req.url === '/user/login' || req.url === '/user/createUser' || req.url.startsWith('/user/check')){
          next();
      }

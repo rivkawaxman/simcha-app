@@ -86,10 +86,18 @@ export default class NewContributor extends React.Component<NewContributorProps,
                                     onChange={(e) => { this.changeField(e) }} />
                                 </div>*/}
                                 <div className="form-group col-md-6 checkbox-group">
-                                    <input type="checkbox" name="alwaysInclude" 
+                                    <label className="control control--checkbox">Always Include
+                                    <input type="checkbox" name="alwaysInclude"
+                                        checked={this.state.contributor.alwaysInclude}
+                                        
+                                        onChange={(e) => { this.changeCheckBox(e) }}
+                                    />
+                                    <span className="control__indicator"></span> 
+                                </label>
+                                    {/*<input type="checkbox" name="alwaysInclude" 
                                         checked={this.state.contributor.alwaysInclude}
                                         onChange={(e) => { this.changeCheckBox(e) }} />
-                                    <span className="checkbox-class">Always Include</span>
+                                    <span className="checkbox-class">Always Include</span>*/}
                                 </div>
                             </div>
                         </Modal.Body>

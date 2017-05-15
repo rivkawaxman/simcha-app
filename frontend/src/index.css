@@ -389,3 +389,15 @@ content: '';
   line-height: .7;
 }
 
+label.control{
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.checkbox-group{
+  margin-top:10px;
+}
+
+.checkbox-group>label{
+padding-top:2px;
+}

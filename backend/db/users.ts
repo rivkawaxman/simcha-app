@@ -42,7 +42,16 @@ function getUserById(id: number) {
 
 
 function createUser(user: User) {
-    return knex('users').insert({ username: user.username, password: user.password, firstName: user.firstName, lastName: user.lastName, email: user.email });
+    return knex('users').insert(
+        { username: user.username, 
+            password: user.password, 
+            firstName: user.firstName, 
+            lastName: user.lastName, 
+            email: user.email 
+        })
+    .then((result) => {
+        return result.id;
+    });
 }
 
 export {

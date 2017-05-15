@@ -4,10 +4,11 @@ import db from '../db';
 import * as _ from 'lodash';
 var config = require('../config');
 import * as jwt from 'jsonwebtoken';
+import* as crypto from 'crypto';
 import { User } from '../../frontend/src/Simcha';
 
-function createToken(user: User) {
-    return jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '1d' });
+function createToken(userid: number) {
+    return jwt.sign({ userId: userid }, process.env.SECRET_KEY, { expiresIn: '1d' });
 }
 
 router.post('/createUser', async (req, res) => {
@@ -20,12 +21,12 @@ router.post('/createUser', async (req, res) => {
         if (!userdb) {
             userdb = {
                 username: user.username,
-                password: user.password,
+                password: saltHashPassword(user.password),
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName
             }
-            await db.users.createUser(userdb);
+            let userId = await db.users.createUser(userdb);
             return res.status(200).send({ id_token: createToken(userdb) });
         }
         else {
@@ -40,18 +41,18 @@ router.post('/createUser', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         if (!req.body.username || !req.body.password) {
-            return res.status(400).send("You must send the username and password");
+            return res.status(200).send({error:"You must send the username and password"});
         }
         let userdb:User = await db.users.getUser(req.body.username);
-        if (!userdb.id) {
-            return res.status(401).send("The username does not exist");
+        if (!userdb) {
+            return res.status(200).send({error:"The username does not exist"});
         }
         
-        else if (userdb.password !== req.body.password) {
-            return res.status(401).send("The username or password don't match");
+        else if (userdb.password !== saltHashPassword(req.body.password)) {
+            return res.status(200).send({error:"The username or password don't match"});
         }
         res.status(200).send({
-            id_token: createToken(userdb)
+            id_token: createToken(userdb.id)
         });
     }
     catch (e) {
@@ -78,5 +79,21 @@ router.get('/userName',async (req, res) => {
     res.json({username: user.username});
 
  } );
+
+ function saltHashPassword(userpassword) {
+    var salt = process.env.SALT; 
+    var passwordData = sha512(userpassword, salt);
+    return passwordData.passwordHash + passwordData.salt;
+}
+
+var sha512 = function(password, salt){
+    var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
+    hash.update(password);
+    var value = hash.digest('hex');
+    return {
+        salt:salt,
+        passwordHash:value
+    };
+};
 
 export default router;

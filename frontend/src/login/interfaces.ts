@@ -20,4 +20,5 @@ export interface LoginProps {
 export interface LoginState {
     username:string;
     password:string;
+    error:string;
 }
