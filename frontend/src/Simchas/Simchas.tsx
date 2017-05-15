@@ -34,37 +34,52 @@ export default class Simchas extends React.Component<any, SimchasState> {
         this.setState({ simchas: result.data });
     }
 
-    async updateSimchas(){
+    async updateSimchas() {
         let result = await axios.get('/api/simchas/');
         this.setState({ simchas: result.data });
     }
 
+    renderSimchas() {
+        if (this.state.simchas.length > 0) {
+            return (
+                <div className="col-md-8 simcha-table">
+                            <SimchaTable simchas={this.state.simchas} deleteSimcha={this.deleteSimcha} updateSimchas={this.updateSimchas} />
+                        </div>
+               
+            )
+        }
+        else {
+            return (
+               <div>
+                   </div>
+            )
+        }
+
+    }
 
     render() {
         return (
-            <div>
-                <div className="row">
-                    <span className="col-md-2"> </span>
-                    <div className="simchas-header col-md-8">
-                        <h2 className="logo simchas col-md-12">Simchas</h2>
+             <div>
+                    <div className="row">
+                        <span className="col-md-2"> </span>
+                        <div className="simchas-header col-md-8">
+                            <h2 className="logo simchas col-md-12">Simchas</h2>
+                        </div>
+                        <span className="col-md-2"> </span>
                     </div>
-                    <span className="col-md-2"> </span>
-                </div>
-                <div className="row">
-                    <span className="col-md-2"> </span>
-                    <div className="col-md-8 table-top">
-                        <NewSimcha onSubmit={this.addNewSimcha} />
+                    <div className="row">
+                        <span className="col-md-2"> </span>
+                        <div className="col-md-8 table-top">
+                            <NewSimcha onSubmit={this.addNewSimcha} />
+                        </div>
+                        <span className="col-md-2"> </span>
                     </div>
-                    <span className="col-md-2"> </span>
-                </div>
-                <div className="row">
-                    <span className="col-md-2"> </span>
-                    <div className="col-md-8 simcha-table">
-                        <SimchaTable simchas={this.state.simchas} deleteSimcha={this.deleteSimcha} updateSimchas={this.updateSimchas} />
+                    <div className="row">
+                        <span className="col-md-2"> </span>
+                        {this.renderSimchas()}
+                        <span className="col-md-2"> </span>
                     </div>
-                    <span className="col-md-2"> </span>
                 </div>
-            </div>
         )
     }
 
