@@ -10,6 +10,7 @@ export interface ContributorTableProps {
     deleteContributor: (id: number) => void;
     editContributor: (contributor:Types.Contributor) => void;
     deposit: (deposit: Types.Deposit) => void;
+    validatePhone: (phoneNum:string)=> void;
 }
 
 export interface ContributorProps {
@@ -17,23 +18,29 @@ export interface ContributorProps {
     onClickEdit: (contributor:Types.Contributor) => void;
     onClickDeposit: (deposit: Types.Deposit) => void;
     onClickDelete: (id: number) => void;
+    validatePhone: (phoneNum:string)=> void;
 }
 
 export interface NewContributorState {
     showModal: boolean;
     contributor: Types.Contributor;
+    cellNumberError:boolean;
+
 }
 
 export interface NewContributorProps {
+    validatePhone: (phoneNum:string)=> void;
     onSubmit: (contributor: Types.Contributor) => void;
 }
 
 export interface EditContributorState {
     showModal: boolean;
     contributor: Types.Contributor;
+    cellNumberError:boolean;
 }
 
 export interface EditContributorProps {
+    validatePhone: (phoneNum:string)=> void;
     contributor: Types.Contributor;
     onSubmit: (contributor: Types.Contributor) => void;
 }

@@ -24,6 +24,7 @@ export default function Contributor(props: ContributorProps) {
                 <EditContributor
                     contributor={props.contributor}
                     onSubmit={props.onClickEdit}
+                    validatePhone={props.validatePhone}
                 />
                 <Deposit onSubmit={props.onClickDeposit} contributor={props.contributor} />
                 <ContributorHistory contributorId={props.contributor.id} />
@@ -33,6 +34,8 @@ export default function Contributor(props: ContributorProps) {
     )
 
 }
+
+
 
 function prompt(event, props: ContributorProps) {
     event.preventDefault();

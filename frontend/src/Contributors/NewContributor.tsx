@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import * as Moment from 'moment';
-import {Contributor} from '../Simcha';
-import {NewContributorState, NewContributorProps} from './interfaces';
+import { Contributor } from '../Simcha';
+import Input from '../Input';
+import { NewContributorState, NewContributorProps } from './interfaces';
 
 export default class NewContributor extends React.Component<NewContributorProps, NewContributorState> {
 
@@ -10,25 +11,33 @@ export default class NewContributor extends React.Component<NewContributorProps,
         super();
         this.state = {
             showModal: false,
-            contributor: new Contributor('', '', '',  Moment().toDate(), false)
+            contributor: new Contributor('', '', '', Moment().toDate(), false),
+            cellNumberError: false
         }
 
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.changeField = this.changeField.bind(this);
+        this.changeCheckBox = this.changeCheckBox.bind(this);
     }
 
     async handleSubmit(event) {
         event.preventDefault();
-        await this.props.onSubmit(this.state.contributor);
-        this.close();
+        if (this.props.validatePhone(this.state.contributor.cellNumber)) {
+            this.setState({ cellNumberError: false });
+            await this.props.onSubmit(this.state.contributor);
+            this.close();
+        }
+        else {
+            this.setState({ cellNumberError: true });
+        }
     }
 
     close() {
         this.setState({ showModal: false });
         this.setState({
-            contributor:  new Contributor('', '', '', Moment().toDate(), false)
+            contributor: new Contributor('', '', '', Moment().toDate(), false)
         });
     }
 
@@ -61,21 +70,45 @@ export default class NewContributor extends React.Component<NewContributorProps,
                             <div className="row">
                                 <div className="form-group col-md-6">
                                     <span>First Name:</span>
-                                    <input type="text" name="firstName" className="form-control" value={this.state.contributor.firstName} onChange={(e) => { this.changeField(e) }} />
+                                    <Input type="text"
+                                        required={true}
+                                        name="firstName"
+                                        className="form-control"
+                                        value={this.state.contributor.firstName}
+                                        onChange={this.changeField}
+                                    />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <span>Last Name:</span>
-                                    <input type="text" name="lastName" className="form-control" value={this.state.contributor.lastName} onChange={(e) => { this.changeField(e) }} />
+                                    <Input type="text"
+                                        name="lastName"
+                                        required={true}
+                                        className="form-control"
+                                        value={this.state.contributor.lastName}
+                                        onChange={this.changeField} />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-6">
                                     <span>Cell Number:</span>
-                                    <input type="text" name="cellNumber" className="form-control" value={this.state.contributor.cellNumber} onChange={(e) => { this.changeField(e) }} />
+                                    <Input type="text"
+                                        name="cellNumber"
+                                        required={true}
+                                        className="form-control"
+                                        error={this.state.cellNumberError}
+                                        errorMessage={"Please enter a valid phone number"}
+                                        value={this.state.contributor.cellNumber}
+                                        onChange={this.changeField} />
                                 </div>
                                 <div className="form-group col-md-6">
                                     <span>Initial Deposit:</span>
-                                    <input type="number" name="currentBalance" className="form-control" value={this.state.contributor.currentBalance} onChange={(e) => { this.changeField(e) }} />
+                                    <Input
+                                        type="number"
+                                        name="currentBalance"
+                                        className="form-control"
+                                        value={this.state.contributor.currentBalance}
+                                        onChange={this.changeField}
+                                    />
                                 </div>
                             </div>
                             <div className="row">
@@ -87,13 +120,14 @@ export default class NewContributor extends React.Component<NewContributorProps,
                                 </div>*/}
                                 <div className="form-group col-md-6 checkbox-group">
                                     <label className="control control--checkbox">Always Include
-                                    <input type="checkbox" name="alwaysInclude"
-                                        checked={this.state.contributor.alwaysInclude}
-                                        
-                                        onChange={(e) => { this.changeCheckBox(e) }}
-                                    />
-                                    <span className="control__indicator"></span> 
-                                </label>
+                                    <input
+                                            type="checkbox"
+                                            name="alwaysInclude"
+                                            checked={this.state.contributor.alwaysInclude}
+                                            onChange={this.changeCheckBox}
+                                        />
+                                        <span className="control__indicator"></span>
+                                    </label>
                                     {/*<input type="checkbox" name="alwaysInclude" 
                                         checked={this.state.contributor.alwaysInclude}
                                         onChange={(e) => { this.changeCheckBox(e) }} />

@@ -39,19 +39,14 @@ function edit(contributor: Contributor) {
 }
 
 function updateBalance(id: number, amount: number) {
-    console.log('update balance');
     return knex('contributors').where('id', id).update({ currentBalance: amount });
 }
 
 function getCurrentBAlance(id: number) {
-    console.log(
-        'get current balance'
-    );
     return knex('contributors').where('id', id).select('currentBalance');
 }
 
 function deposit(deposit: Deposit) {
-console.log('deposit');
     return knex('deposits').insert(
         {
             contributor_id: deposit.contributor.id,

@@ -5,15 +5,18 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap'
 
 
 interface InputProps {
+    wrapperClass?:string;
     className?: string;
     type: string;
     name: string;
-    value: string;
+    value?: string | number | boolean;
     placeholder?: string;
-    onChange: (event: any) => void;
+    onChange?: (event: any) => void;
     error?: boolean;
     errorMessage?: string;
     required?: boolean;
+    checked?:boolean;
+    readOnly?:boolean;
 }
 
 function renderError(props: InputProps) {
@@ -36,16 +39,18 @@ function renderError(props: InputProps) {
 
 export default function Input(props: InputProps) {
     return (
-        <div>
+        <div className={props.wrapperClass}>
             {renderError(props)}
             <input
-                className={props.className}
                 type={props.type}
+                checked={props.checked}
+                className={props.className}
                 name={props.name}
                 required={props.required}
-                value={props.value}
+                readOnly={props.readOnly}
+                value={props.value ? props.value.toString(): ''}
                 placeholder={props.placeholder}
-                onChange={(e) => { props.onChange(e) }}
+                onChange={(e) => {props.onChange ? props.onChange(e) : console.log(e)}}
             />
         </div>
     )

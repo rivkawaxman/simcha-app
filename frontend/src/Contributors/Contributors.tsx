@@ -49,6 +49,31 @@ export default class Contributors extends React.Component<any, ContributorsState
         this.setState({ contributors:  result.data.contributors , total: result.data.total});
     }
 
+     checkPhoneNumber(phoneNumber: string) {
+        if (phoneNumber.length > 10 || phoneNumber.length < 9 || phoneNumber.match(/[^$,.\d]/)) {
+            return false;
+        }
+        return true;
+    }
+
+    renderTable(){
+        if(this.state.contributors.length > 0){
+            return (
+                <div className="col-md-8 simcha-table">
+                        <ContributorTable
+                            contributors={this.state.contributors}
+                            deleteContributor={this.deleteContributor}
+                            editContributor={this.editContributor}
+                            deposit={this.deposit}
+                            validatePhone={this.checkPhoneNumber} />
+                    </div>
+            )
+        }
+        else{
+            return(<div></div>)
+        }
+    }
+
 
     render() {
         return (
@@ -64,7 +89,7 @@ export default class Contributors extends React.Component<any, ContributorsState
                     <span className="col-md-2"> </span>
                     <div className="col-md-8 table-top">
                         <div className="row">
-                            <div className="col-md-6"><NewContributor onSubmit={this.addNewContributor} /></div>
+                            <div className="col-md-6"><NewContributor onSubmit={this.addNewContributor} validatePhone={this.checkPhoneNumber} /></div>
                             <div className="col-md-6">
                                 <div className="total">{Numeral(this.state.total).format('$0,0.00')}</div>
                             </div>
@@ -74,13 +99,7 @@ export default class Contributors extends React.Component<any, ContributorsState
                 </div>
                 <div className="row">
                     <span className="col-md-2"> </span>
-                    <div className="col-md-8 simcha-table">
-                        <ContributorTable
-                            contributors={this.state.contributors}
-                            deleteContributor={this.deleteContributor}
-                            editContributor={this.editContributor}
-                            deposit={this.deposit} />
-                    </div>
+                    {this.renderTable()}
                     <span className="col-md-2"> </span>
                 </div>
             </div>

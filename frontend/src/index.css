@@ -401,3 +401,7 @@ label.control{
 .checkbox-group>label{
 padding-top:2px;
 }
+
+.checkbox-group.edit{
+  margin-top:23px;
+}
