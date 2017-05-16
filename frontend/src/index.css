@@ -405,3 +405,49 @@ padding-top:2px;
 .checkbox-group.edit{
   margin-top:23px;
 }
+
+.my-account-title{
+  position: relative;
+  z-index: 1000;
+}
+
+.my-account-info>.fa-pencil{
+  margin-left:10px;
+}
+
+
+.my-account-group{
+  padding-top:10px;
+}
+
+.my-account-group>label{
+  color:#9b999a;
+}
+
+.my-account-group>.field-group{
+  margin-top:-8px;
+  margin-left:-33px;
+  margin-bottom: 15px;
+}
+
+.my-account-group>button{
+  margin-top:-8px;
+ 
+}
+
+
+.my-account-group>.field-group>form>button{
+  margin-right:10px;
+}
+
+.password-buttons{
+  float:right;
+
+}
+.password-field{
+  margin-bottom: 10px;
+}
+
+.password-buttons>button{
+  margin-right:15px;
+}

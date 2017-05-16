@@ -25,6 +25,8 @@ export default class Register extends React.Component<any, MyAccountState> {
         }
 
         this.handleChangeUser = this.handleChangeUser.bind(this);
+        this.handleSubmitField = this.handleSubmitField.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
         // this.handleSubmit = this.handleSubmit.bind(this);
         // this.showPassword = this.showPassword.bind(this);
     }
@@ -34,15 +36,20 @@ export default class Register extends React.Component<any, MyAccountState> {
         this.setState({ user: result.data.user });
     }
 
-    /*async handleSubmit(event) {
-        event.preventDefault();
+    async handleSubmitField() {
         let error = false;
-        if (this.state.user.password !== this.state.confirmPassword) {
-            error = true;
-            this.setState({ confirmPasswordError: true });
-        }
-        else {
-            this.setState({ confirmPasswordError: false });
+        let oldUsername = await axios.get('/api/user/username');
+        if (this.state.user.username != oldUsername.data.username) {
+            await axios.post('/api/user/check', { username: this.state.user.username })
+                .then((r) => {
+                    if (r.data === "ok") {
+                        this.setState({ userNameError: false });
+                    }
+                    else {
+                        error = true;
+                        this.setState({ userNameError: true });
+                    }
+                });
         }
         if (!this.validateEmail(this.state.user.email)) {
             error = true;
@@ -51,91 +58,33 @@ export default class Register extends React.Component<any, MyAccountState> {
         else {
             this.setState({ emailError: false });
         }
-        if (this.state.user.password.length < 8 || this.state.user.password.search(/[0-9]/i) < 0) {
-            error = true;
-            this.setState({ passwordError: true });
-        }
-        else {
-            this.setState({ passwordError: false });
-        }
-
-        await axios.post('/api/user/check', { username: this.state.user.username })
-
-            .then((r) => {
-                console.log(r);
-                if (r.data === "ok") {
-                    this.setState({ userNameError: false });
-                }
-                else {
-                    error = true;
-                    this.setState({ userNameError: true });
-                }
-            });
         if (!error) {
             await axios.post('/api/user/editUser', { user: this.state.user });
+            let result = await axios.get('/api/user/userInfo');
+            this.setState({ user: result.data.user });
         }
+        return error;
     }
 
- 
+    async handleChangePassword(){
+        await axios.post('/api/user/changePassword', {password: this.state.user.password})
+    }
 
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
 
-    renderPasswordFields() {
-        if (this.state.showPasswordFields) {
-            return (
-                <form>
-                    <label>Password:</label>
-                    <div className='form-group'>
-                        <Input
-                            className="form-control"
-                            type="password"
-                            name="password"
-                            value={this.state.user.password ? this.state.user.password : ''}
-                            placeholder="Password"
-                            onChange={this.handleChange}
-                            error={this.state.passwordError}
-                            errorMessage={"Password must be at least 8 charachters and include a number"} />
-                    </div>
-                    <div className='form-group'>
-                        <Input
-                            className="form-control"
-                            type="password"
-                            name="confirmPassword"
-                            value={this.state.confirmPassword}
-                            placeholder="Confirm Password"
-                            onChange={this.handleChange}
-                            error={this.state.confirmPasswordError}
-                            errorMessage={"Passwords must match"} />
-                    </div>
-                    <button type="submit" className="btn pink">Update</button>
-                </form>
-            )
-        }
-        else {
-            return (
-                <div className='form-group'>
-                    <label>Password:</label>
-                    <div><button className="btn pink" onClick={(e) => { this.showPassword() }}>Change</button></div>
-                </div>)
-        }
-    }
+    handleChangeUser(event) {
 
-    showPassword() {
-        this.setState({ showPasswordFields: true })
-    }*/
-
-       handleChangeUser(event) {
-        // if (event.target.name !== "confirmPassword") {
+        if (event.target.name !== "confirmPassword") {
             let user = this.state.user;
             user[event.target.name] = event.target.value;
             this.setState({ user });
-        // }
-        // else {
-        //     this.setState({ confirmPassword: event.target.value });
-        // }
+        }
+        else {
+            this.setState({ confirmPassword: event.target.value });
+        }
     }
 
     render() {
@@ -145,16 +94,60 @@ export default class Register extends React.Component<any, MyAccountState> {
                     <span className="col-md-2"> </span>
 
                     <div className="col-md-8">
-                        <h2 className="logo simchas ">My Account</h2>
+                        <h2 className="logo simchas my-account-title">My Account</h2>
                         <span className="col-md-2"> </span>
                         <div className="col-md-8  simchas-header">
-                            <form >
-                            {/*onSubmit={(e) => { this.handleSubmit(e) }}*/}
-                            
-                                <h4 className="register-title">Personal Info</h4>
-                               <MyAccountField  inputName="firstName" label={"First Name"} value={this.state.user.firstName} onChange={this.handleChangeUser}/>
-                            </form>
-                            {/*{this.renderPasswordFields()}*/}
+
+                            <h4 className="register-title">Personal Info</h4>
+                            <MyAccountField
+                                inputName="firstName"
+                                label={"First Name"}
+                                value={this.state.user.firstName}
+                                onChange={this.handleChangeUser}
+                                required={true}
+                                handleSubmit={this.handleSubmitField}
+                            />
+                            <MyAccountField
+                                inputName="lastName"
+                                label={"Last Name"}
+                                value={this.state.user.lastName}
+                                onChange={this.handleChangeUser}
+                                required={true}
+                                handleSubmit={this.handleSubmitField}
+                            />
+                            <MyAccountField
+                                inputName="email"
+                                label={"Email"}
+                                value={this.state.user.email}
+                                error={this.state.emailError}
+                                errorMessage={"Please enter a valid email address"}
+                                onChange={this.handleChangeUser}
+                                required={true}
+                                handleSubmit={this.handleSubmitField}
+                            />
+                            <h4 className="register-title">User Info</h4>
+                            <MyAccountField
+                                inputName="username"
+                                label={"Username"}
+                                value={this.state.user.username}
+                                onChange={this.handleChangeUser}
+                                error={this.state.userNameError}
+                                errorMessage={"Username already exists"}
+                                required={true}
+                                handleSubmit={this.handleSubmitField}
+                            />
+                            <MyAccountField
+                                inputName="password"
+                                label={"Password"}
+                                isPassword={true}
+                                confirmValue={this.state.confirmPassword}
+                                value={this.state.user.password}
+                                onChange={this.handleChangeUser}
+                                handleSubmit={this.handleSubmitField}
+                                handleChangePassword={this.handleChangePassword}
+
+                            />
+
                         </div>
                         <span className="col-md-2"> </span>
                     </div>

@@ -31,11 +31,20 @@ export interface MyAccountState{
 export interface MyAccountFieldProps{
     inputName:string,
     label:string,
+    isPassword?:boolean;
     value:string,
+    error?:boolean,
+    errorMessage?:string,
+    required?:boolean,
+    confirmValue?:string,
     onChange: (event) => void;
+    handleSubmit: () => Promise<boolean>;
+    handleChangePassword?: () => void;
 }
 
 export interface MyAccountFieldState{
-    editMode:boolean
+    editMode:boolean,
+    passWordError:boolean,
+    confirmPasswordError:boolean
 
 }

@@ -55,11 +55,7 @@ function createUser(user: User) {
 }
 
 function editUser(userId:number, user:User){
-    return knex('users').where('id', '=', userId).update({firstName:user.firstName, lastName:user.lastName, email:user.email});
-}
-
-function editUsername(userId:number, username:string){
-    return knex('users').where('id', '=', userId).update({username:username});
+    return knex('users').where('id', '=', userId).update({firstName:user.firstName, lastName:user.lastName, email:user.email, username:user.username});
 }
 
 function updatePassword(userId:number, password:string){
@@ -71,6 +67,5 @@ export {
     createUser,
     getUserById,
     editUser,
-    editUsername,
     updatePassword
 }

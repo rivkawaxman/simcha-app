@@ -81,27 +81,19 @@ router.get('/userName', async (req, res) => {
 });
 
 router.get('/userInfo', async (req, res) => {
-
     let user: User = await db.users.getUserById(req.user);
     user.password = '';
     res.json({ user: user });
-
 });
 
 router.post('/editUser', async (req, res) => {
-
     await db.users.editUser(req.user, req.body.user);
     res.json({ msg: "success" });
 });
 
-router.post('/editUsername', async (req, res) => {
-    await db.users.editUser(req.user, req.body.username);
-    res.json({ msg: "success" });
-});
-
-router.post('/changePassword', async (req, res) => {
-    await db.users.editUser(req.user, req.body.password);
-    res.json({ msg: "success" });
+router.post('/changePassword', async(req,res) =>{
+    await db.users.updatePassword(req.user, saltHashPassword(req.body.password));
+    res.json({msg:"success"});
 });
 
 function saltHashPassword(userpassword) {
@@ -109,6 +101,7 @@ function saltHashPassword(userpassword) {
     var passwordData = sha512(userpassword, salt);
     return passwordData.passwordHash + passwordData.salt;
 }
+
 
 var sha512 = function (password, salt) {
     var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */

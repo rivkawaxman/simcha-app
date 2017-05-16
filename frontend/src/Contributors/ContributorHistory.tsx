@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import * as Moment from 'moment';
 import * as Numeral from 'numeral';
-import {ContributorHistoryProps, ContributorHistoryState} from './interfaces';
+import { ContributorHistoryProps, ContributorHistoryState } from './interfaces';
 
 export default class ContributorHistory extends React.Component<ContributorHistoryProps, ContributorHistoryState> {
     constructor() {
@@ -44,17 +44,17 @@ export default class ContributorHistory extends React.Component<ContributorHisto
                             <thead>
                                 <tr>
                                     <th>Type</th>
-                                     <th>Simcha Name</th>
-                                      <th>Amount</th> 
-                                      <th>Date</th>
-                                    </tr>
+                                    <th>Simcha Name</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                {this.state.history.map((h, index) => 
+                                {this.state.history.map((h, index) =>
                                     <tr key={index}>
                                         <td>{h.type}</td>
                                         <td>{h.simcha}</td>
-                                        <td>{(h.type==="Deposit" ? "+" : "-") + Numeral(h.amount).format('$0,0.00')}</td>
+                                        <td>{(h.type === "Deposit" ? "+" : "-") + Numeral(h.amount).format('$0,0.00')}</td>
                                         <td>{Moment(h.date).format('MMMM DD, YYYY')}</td>
                                     </tr>
                                 )}
