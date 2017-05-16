@@ -45,8 +45,10 @@ export default class MyAccountField extends React.Component<MyAccountFieldProps,
             this.setState({ passWordError: false });
             error = false;
         }
-        this.props.handleChangePassword ? this.props.handleChangePassword() : console.log('error');
-        this.setState({ editMode: false })
+        if (!error) {
+            this.props.handleChangePassword ? this.props.handleChangePassword() : console.log('error');
+            this.setState({ editMode: false })
+        }
     }
 
     handleClickEdit() {
@@ -65,7 +67,7 @@ export default class MyAccountField extends React.Component<MyAccountFieldProps,
                         <form onSubmit={(e) => { this.handleSubmit(e) }}>
                             <Input
                                 name={this.props.inputName}
-                                type={"text"} 
+                                type={"text"}
                                 className="form-control my-account-field"
                                 error={this.props.error}
                                 errorMessage={this.props.errorMessage}
@@ -99,7 +101,7 @@ export default class MyAccountField extends React.Component<MyAccountFieldProps,
                             <div>
                                 <Input
                                     name={"confirmPassword"}
-                                    placeholder={"Confrim Password"}
+                                    placeholder={"Confirm Password"}
                                     type={"password"}
                                     className="form-control my-account-field"
                                     error={this.state.confirmPasswordError}
