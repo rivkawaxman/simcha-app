@@ -293,35 +293,35 @@ content: '';
   margin-bottom: 40px;
 }
 
-.heading>.avatar{
+.heading-box .avatar{
   /*margin-top: 20px;*/
   width: 120px;
-	height: 120px;
+  height: 120px;
   border-radius: 50%;
   background-color: #9b999a;
   color: white;
   font-size: 6em;
   text-align: center;
+  display: inline-block;
+  margin-right: 16px;
+  padding-top: 16px;
 }
 
-.heading>.user{
+.heading-box .user{
    color:#9b999a;
   font-family: 'Crete Round', serif;
   font-size: 5em;
   padding-top:18px;
   padding-left: 26px;
+  display: inline-block;
 }
 
 .heading-box{
-    margin-left: 30%;
-    margin-bottom: 20px;
+    text-align: center;
+  margin-bottom: 16px;
 }
 
-.small-boxes{
-  margin-left: 50px;
-}
-
-.small-boxes>.box{
+.small-boxes .box{
   text-align: center;
   height: 250px;
   padding-bottom: 50px;
@@ -329,20 +329,26 @@ content: '';
   font-family: 'Crete Round', serif;
   font-size:2em;
    color:#9b999a;
+  margin-bottom: 30px;
 }
 
-.small-boxes>.box>.number{
+.small-boxes .box .number{
   line-height: 1;
    font-size: 6em;
  color: #f44289;
 
 }
 
-.small-boxes>.box>.currency{
+.small-boxes .box .currency{
   line-height: 1.2;
-  margin-top:30px;
    font-size: 4em;
  color: #f44289;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1160px){
+  .small-boxes>.box>.currency{
+    font-size: 3em;
+  }
 }
 
 .space-between{
@@ -351,9 +357,6 @@ content: '';
 
 .big-box{
     background-color: #efefef;
-    margin-top: 30px;
-    margin-left: 62px;
-    margin-right: 95px;
     height: 240px;
     font-family: 'Crete Round', serif;
 }
