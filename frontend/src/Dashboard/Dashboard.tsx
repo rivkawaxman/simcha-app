@@ -29,38 +29,36 @@ export default class Dashboard extends React.Component<any, DashboardState>{
 
     render() {
         return (
-            <div>
+            <div className="container">
                 <div className="row">
-                    <div className="col-md-2"> </div>
 
-                    <div className="col-md-8">
-                        <div className="row">
-                            <div className="col-md-2"></div>
-                            <div className="col-md-8 heading-box">
-                                <span className="heading row">
-                                    <div className="avatar col-md-3">
-                                        <i className="fa fa-gift"></i>
-                                    </div>
-                                    <div className="user col-md-9">{this.state.username}
-                                    </div>
-                                </span>
-                            </div>
-                            <div className="col-md-2"></div>
+                    <div className="row">
+                        <div className="col-md-12 heading-box">
+
+                            <i className="fa fa-gift avatar"></i>
+                            <p className="user">{this.state.username}
+                            </p>
+
                         </div>
-                        <div className="small-boxes row">
-                            <div className=" box col-md-5">
+                        <div className="col-md-2"></div>
+                    </div>
+                    <div className="small-boxes row">
+                        <div className="col-md-6">
+                            <div className="box">
                                 <div className="number">{this.state.totalContributors}</div>
                                 <div>Contributors</div>
                             </div>
-                            <div className="col-md-2 space-between">
-                            </div>
-                            <div className=" box col-md-5">
-                                <div className="currency">{Numeral(this.state.balance).format('$0,0.00')}</div> <div>in total</div>
-
-                            </div>
                         </div>
+                       <div className="col-md-6">
+                           <div className="box">
+                               <div className="currency">{Numeral(this.state.balance).format('$0,0.00')}</div> <div>in total</div>
 
-                        <div className="row">
+                           </div>
+                       </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-12">
                             <div className="big-box">
                                 <div className="pink title">
                                     Upcoming Simchas
@@ -79,12 +77,8 @@ export default class Dashboard extends React.Component<any, DashboardState>{
                             </div>
                         </div>
                     </div>
-
-
-                    <div className="col-md-2"> </div>
+                    </div>
                 </div>
-
-            </div>
         )
     }
 }
