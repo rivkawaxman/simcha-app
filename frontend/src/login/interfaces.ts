@@ -18,6 +18,12 @@ export interface LoginState {
     error:string;
 }
 
+
+export interface ForgotPasswordState {
+    username:string;
+    error:string;
+}
+
 export interface MyAccountState{
     user: Types.User;
     confirmPassword: string;

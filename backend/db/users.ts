@@ -50,7 +50,7 @@ function createUser(user: User) {
             email: user.email 
         })
     .then((result) => {
-        return result.id;
+        return result[0];
     });
 }
 

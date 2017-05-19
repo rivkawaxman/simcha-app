@@ -88,7 +88,9 @@ function total(userId:number) {
 }
 
 function contributorCount(userId:number):number{
+    console.log('userId', userId)
     return knex('contributors').count().where('contributors.user_id', '=',userId).then((result) => {
+        console.log('in contributor count');
         let total: number = result[0]['count(*)'];
         return total;
     });

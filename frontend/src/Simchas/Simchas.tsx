@@ -42,7 +42,7 @@ export default class Simchas extends React.Component<any, SimchasState> {
     renderSimchas() {
         if (this.state.simchas.length > 0) {
             return (
-                <div className="col-md-8 simcha-table">
+                <div className="col-md-8 col-sm-10  col-sm-offset-1 simcha-table col-md-offset-2 ">
                             <SimchaTable simchas={this.state.simchas} deleteSimcha={this.deleteSimcha} updateSimchas={this.updateSimchas} />
                         </div>
                
@@ -59,25 +59,19 @@ export default class Simchas extends React.Component<any, SimchasState> {
 
     render() {
         return (
-             <div>
+             <div className="simchas-container">
                     <div className="row">
-                        <span className="col-md-2"> </span>
-                        <div className="simchas-header col-md-8">
+                        <div className="simchas-header col-sm-10  col-sm-offset-1 col-md-8 col-md-offset-2">
                             <h2 className="logo simchas col-md-12">Simchas</h2>
                         </div>
-                        <span className="col-md-2"> </span>
                     </div>
                     <div className="row">
-                        <span className="col-md-2"> </span>
-                        <div className="col-md-8 table-top">
+                        <div className="col-md-8 table-top col-sm-10  col-sm-offset-1 col-md-offset-2">
                             <NewSimcha onSubmit={this.addNewSimcha} />
                         </div>
-                        <span className="col-md-2"> </span>
                     </div>
                     <div className="row">
-                        <span className="col-md-2"> </span>
                         {this.renderSimchas()}
-                        <span className="col-md-2"> </span>
                     </div>
                 </div>
         )

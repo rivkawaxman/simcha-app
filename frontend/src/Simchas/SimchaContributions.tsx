@@ -30,11 +30,10 @@ export default class SimchaContributors extends React.Component<SimchaContributi
         return (
             <tr>
                 <td> </td>
-                <td colSpan={3} className="col-span-3">
+                <td colSpan={3}>
                     <div className="row">
                       
-                        <h4 className="details-title col-md-3">  <i className="fa fa-gift"></i>Contributions</h4>
-                        <span className="col-md-7"> </span>
+                        <h4 className="details-title col-md-4">  <i className="fa fa-gift"></i>Contributions</h4>
                         <AddContributions contributions={this.state.contributions} simcha={this.props.simcha} onAdd={this.addContributor}/>
                     </div>
                     <div>

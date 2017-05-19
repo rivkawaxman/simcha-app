@@ -5,7 +5,7 @@ import Dashboard from './Dashboard/Dashboard';
 
 export default function Home() {
     return (
-        <div>
+        <div className="home-container">
             {userOrPublic()}
         </div>
     )

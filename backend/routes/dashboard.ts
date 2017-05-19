@@ -5,6 +5,7 @@ import { Simcha, User } from '../../frontend/src/Simcha';
 
 router.get('/', async (req, res) => {
     try {
+        console.log('in dash')
         let count = await db.contributors.contributorCount(req.user);
         console.log(count);
         let balance: number = await db.contributors.total(req.user);

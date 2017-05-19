@@ -6,6 +6,7 @@ import Contributors from './Contributors/Contributors';
 import Login from './login/Login';
 import Register from './login/Register';
 import MyAccount from './login/MyAccount';
+import ForgotPassword from './login/ForgotPassword';
 import * as Router from 'react-router-dom';
 
 
@@ -22,6 +23,7 @@ class App extends React.Component<{}, null> {
              <Router.Route path="/login" component={Login} />
              <Router.Route path="/register" component={Register} /> 
              <Router.Route path="/account" component={MyAccount} /> 
+              <Router.Route path="/forgotPassword" component={ForgotPassword} /> 
           </Router.Switch>
         </div>
       </Router.BrowserRouter>

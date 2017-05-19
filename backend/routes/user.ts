@@ -27,7 +27,8 @@ router.post('/createUser', async (req, res) => {
                 lastName: user.lastName
             }
             let userId = await db.users.createUser(userdb);
-            return res.status(200).send({ id_token: createToken(userdb) });
+            console.log("userid", userId);
+            return res.status(200).send({ id_token: createToken(userId) });
         }
         else {
             return res.status(400).send("A user with that username already exists");
