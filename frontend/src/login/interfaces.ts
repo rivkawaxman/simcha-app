@@ -24,6 +24,14 @@ export interface ForgotPasswordState {
     error:string;
 }
 
+export interface ChangePasswordState {
+    password:string;
+    confirmPassword:string;
+    passwordError:boolean;
+    confirmError:boolean;
+    error:string;
+}
+
 export interface MyAccountState{
     user: Types.User;
     confirmPassword: string;

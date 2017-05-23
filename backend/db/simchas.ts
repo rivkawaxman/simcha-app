@@ -2,6 +2,7 @@ import knex from './knex';
 import * as Moment from 'moment';
 import { Contribution, Simcha, Contributor } from '../../frontend/src/Simcha';
 
+
 function getAll(userId:number) {
     return knex.select('simchas.id', 'simchas.name', 'simchas.date', knex.raw('sum(contributions.amount) as total'))
         .from('simchas')

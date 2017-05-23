@@ -26,7 +26,8 @@ app.use('/api', (req, res, next) => {
     });
  }
  else{
-     if(req.url === '/user/login' || req.url === '/user/createUser' || req.url.startsWith('/user/check')){
+     if(req.url === '/user/login' || req.url === '/user/createUser' || req.url.startsWith('/user/check') 
+     || req.url === '/user/forgotPassword' || req.url === '/user/changePasswordTicket'){
          next();
      }
      else{

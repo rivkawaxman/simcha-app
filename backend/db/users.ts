@@ -62,10 +62,23 @@ function updatePassword(userId:number, password:string){
     return knex('users').where('id', '=', userId).update({password:password});
 }
 
+function addTicket(ticket:string|null, userId:number){
+    return knex('users').where('id', '=', userId).update({ticket: ticket});
+}
+
+function checkTicket(ticket:string){
+    return knex('users').where('ticket', '=', ticket).then((r) => {
+        addTicket(null, r.id);
+        return r[0];
+    })
+}
+
 export {
     getUser,
     createUser,
     getUserById,
     editUser,
-    updatePassword
+    updatePassword,
+    addTicket,
+    checkTicket
 }

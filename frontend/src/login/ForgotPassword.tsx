@@ -1,13 +1,13 @@
 import * as React from 'react';
 import Input from '../Input';
-//import axios from 'axios';
+import axios from 'axios';
 import { Alert } from 'react-bootstrap';
 //import * as Token from './Token';
 import { ForgotPasswordState } from './interfaces';
 import {Link} from 'react-router-dom';
 
 
-export default class Login extends React.Component<any, ForgotPasswordState> {
+export default class ForgotPassword extends React.Component<any, ForgotPasswordState> {
 
     constructor() {
         super();
@@ -22,7 +22,15 @@ export default class Login extends React.Component<any, ForgotPasswordState> {
 
     async handleSubmit(event) {
         event.preventDefault();
-       
+       let result = await axios.post('/api/user/forgotPassword', {username: this.state.username});
+       if(result.data.error){
+           this.setState({error: result.data.error});
+       }
+       else{
+           alert('Check your inbox!');
+           this.props.history.push('/');
+            
+       }
     }
 
 
@@ -72,7 +80,7 @@ export default class Login extends React.Component<any, ForgotPasswordState> {
                                     <form onSubmit={(e) => { this.handleSubmit(e) }}>
 
                                         <div className="col-md-12">
-                                             <p>Enter you username and we will send you an email with a link to change your password.</p>
+                                             <p className="center-p">Enter you username and we will send you an email with a link to change your password.</p>
                                             <div className='form-group'>
                                                 <Input
                                                     className="form-control"
@@ -84,7 +92,9 @@ export default class Login extends React.Component<any, ForgotPasswordState> {
                                                     onChange={this.handleChange} />
                                             </div>
                                         </div>
+                                        <div className="center-p">
                                        <Link to={''}>Forgot your username?</Link>
+                                       </div>
                                         <div className="login-btn">
                                             <button type="submit" className="btn pink ">Send</button>
                                         </div>

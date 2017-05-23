@@ -6,6 +6,8 @@ var config = require('../config');
 import * as jwt from 'jsonwebtoken';
 import * as crypto from 'crypto';
 import { User } from '../../frontend/src/Simcha';
+import * as nodemailer from 'nodemailer';
+
 
 function createToken(userid: number) {
     return jwt.sign({ userId: userid }, process.env.SECRET_KEY, { expiresIn: '1d' });
@@ -92,10 +94,80 @@ router.post('/editUser', async (req, res) => {
     res.json({ msg: "success" });
 });
 
-router.post('/changePassword', async(req,res) =>{
-    await db.users.updatePassword(req.user, saltHashPassword(req.body.password));
-    res.json({msg:"success"});
+router.post('/changePassword', async (req, res) => {
+    if (req.user) {
+        await db.users.updatePassword(req.user, saltHashPassword(req.body.password));
+        res.json({ msg: "success" });
+    }
+    else{
+       res.json({ error: "error" }); 
+    }
 });
+
+router.post('/changePasswordTicket', async (req, res) => {
+   
+     if(req.body.ticket){
+        let user = await db.users.checkTicket(req.body.ticket);
+        console.log('user', user);
+        await db.users.updatePassword(user.id, saltHashPassword(req.body.password))
+        res.status(200).send({
+            id_token: createToken(user.id)
+        });
+    }
+    else{
+       res.json({ error: "error" }); 
+    }
+});
+
+router.post('/forgotPassword', async (req, res) => {
+    let username: string = req.body.username;
+    let user: User = await db.users.getUser(username);
+    if (user) {
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'simchafundapp@gmail.com',
+                pass: 'bitbean123'
+            }
+        })
+        let ticket = genRandomString(25);
+        try {
+            await db.users.addTicket(ticket, user.id);
+            let url = `${req.protocol}://${req.hostname}:3000/changePassword/${ticket}`
+            console.log("url", url);
+            // setup email data with unicode symbols
+            let mailOptions = {
+                from: '"Simcha Fund" <simchafuncapp@gmail.com>', // sender address
+                to: user.email, // list of receivers
+                subject: 'Your Change Password Request', // Subject line           
+                html: `<p>Click <a href="${url}">here</a> to change your password.</p>` // html body
+            };
+
+            // send mail with defined transport object
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message %s sent: %s', info.messageId, info.response);
+                res.json({ msg: "success" });
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
+
+    }
+    else {
+        console.log("Username does not exist");
+        res.json({ error: "Username does not exist" });
+    }
+});
+
+var genRandomString = function (length) {
+    return crypto.randomBytes(Math.ceil(length / 2))
+        .toString('hex') /** convert to hexadecimal format */
+        .slice(0, length);   /** return required number of characters */
+};
 
 function saltHashPassword(userpassword) {
     var salt = process.env.SALT;

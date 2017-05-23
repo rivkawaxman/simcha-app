@@ -3,59 +3,79 @@ import Input from '../Input';
 import axios from 'axios';
 import { Alert } from 'react-bootstrap';
 import * as Token from './Token';
-import { LoginState } from './interfaces';
-import { Link } from 'react-router-dom';
+import { ChangePasswordState } from './interfaces';
 
-export default class Login extends React.Component<any, LoginState> {
+
+export default class ChangePassword extends React.Component<any, ChangePasswordState> {
 
     constructor() {
         super();
         this.state = {
-            username: '',
             password: '',
-            error: '',
+            passwordError: false,
+            confirmPassword: '',
+            confirmError: false,
+            error: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleAlertDismiss = this.handleAlertDismiss.bind(this);
+
     }
 
     async handleSubmit(event) {
         event.preventDefault();
-        await axios.post('/api/user/login', { username: this.state.username, password: this.state.password }).then((r) => {
-            if (!r.data.error) {
+        //console.log(this.props.match.params.token);
+        let error = false;
+        if (this.state.password !== this.state.confirmPassword) {
+            error = true;
+            this.setState({ confirmError: true });
+        }
+        else {
+            this.setState({ confirmError: false });
+        }
+        if (this.state.password.length < 8 || this.state.password.search(/[0-9]/i) < 0) {
+            error = true;
+            this.setState({ passwordError: true });
+        }
+        else {
+            this.setState({ passwordError: false });
+        }
+        if (!error) {
+            await axios.post('/api/user/changePasswordTicket', { ticket: this.props.match.params.ticket, password: this.state.password }).then((r) => {
+                if (!r.data.error) {
 
-                let token: string = r.data.id_token;
-                Token.SaveTokenAsCookie(token);
-                this.props.history.push('/');
+                    let token: string = r.data.id_token;
+                    Token.SaveTokenAsCookie(token);
+                    this.props.history.push('/');
+                }
+                else {
+                    this.setState({ error: r.data.error })
+                };
+
             }
-            else {
-                this.setState({ error: r.data.error })
-            }
-        });
+            );
+        }
     }
 
 
     handleChange(event) {
-        if (event.target.name === "username") {
-            let username = this.state.username;
-            username = event.target.value;
-            this.setState({ username });
-        }
-        else {
+        if (event.target.name === "password") {
             let password = this.state.password;
             password = event.target.value;
             this.setState({ password });
         }
+        else {
+            let confirmPassword = this.state.confirmPassword;
+            confirmPassword = event.target.value;
+            this.setState({ confirmPassword });
+        }
+
+
     }
 
     handleAlertDismiss() {
         this.setState({ error: '' });
-    }
-
-    forgotPassword(e) {
-        e.preventDefault();
-
     }
 
     renderAlert() {
@@ -85,40 +105,43 @@ export default class Login extends React.Component<any, LoginState> {
                         <div className="row">
                             <div className="pink-box col-md-6"><i className="fa fa-gift"></i></div>
                             <div className="col-md-6">
-                                <h2 className="register-title">Login <div className="logo pink"> Simcha Fund</div></h2>
+                                <h2 className="register-title">Change Password <div className="logo pink"> Simcha Fund</div></h2>
 
                                 <div>
 
                                     <form onSubmit={(e) => { this.handleSubmit(e) }}>
 
                                         <div className="col-md-12">
+
                                             <div className='form-group'>
                                                 <Input
                                                     className="form-control"
-                                                    type="text"
-                                                    name="username"
+                                                    type="password"
+                                                    name="password"
                                                     required={true}
-                                                    value={this.state.username}
-                                                    placeholder="Username"
+                                                    value={this.state.password}
+                                                    placeholder="Password"
+                                                    error={this.state.passwordError}
+                                                    errorMessage={"Password must be at least 8 charachters and include a number"}
                                                     onChange={this.handleChange} />
                                             </div>
                                             <div className='form-group'>
                                                 <Input
                                                     className="form-control"
-                                                    required={true}
                                                     type="password"
-                                                    name="password"
-                                                    value={this.state.password ? this.state.password : ''}
-                                                    placeholder="Password"
-                                                    onChange={this.handleChange}
-                                                />
+                                                    name="confirmPassword"
+                                                    required={true}
+                                                    value={this.state.confirmPassword}
+                                                    placeholder="Confirm Password"
+                                                    error={this.state.confirmError}
+                                                    errorMessage="Passwords must match"
+                                                    onChange={this.handleChange} />
                                             </div>
-                                            <div className="center-p">
-                                                <Link to={'/forgotPassword'}>Forgot your password?</Link>
-                                            </div>
+
                                         </div>
+
                                         <div className="login-btn">
-                                            <button type="submit" className="btn pink ">Login</button>
+                                            <button type="submit" className="btn pink ">Update</button>
                                         </div>
                                     </form>
                                 </div>
